@@ -1,0 +1,450 @@
+[
+    {
+        "abrev": "Ags.",
+        "activo": 1,
+        "clave": "01",
+        "id": 1,
+        "nombre": "Aguascalientes"
+    },
+    {
+        "abrev": "BC",
+        "activo": 1,
+        "clave": "02",
+        "id": 2,
+        "nombre": "Baja California"
+    },
+    {
+        "abrev": "BCS",
+        "activo": 1,
+        "clave": "03",
+        "id": 3,
+        "nombre": "Baja California Sur"
+    },
+    {
+        "abrev": "Camp.",
+        "activo": 1,
+        "clave": "04",
+        "id": 4,
+        "nombre": "Campeche"
+    },
+    {
+        "abrev": "Coah.",
+        "activo": 1,
+        "clave": "05",
+        "id": 5,
+        "nombre": "Coahuila de Zaragoza"
+    },
+    {
+        "abrev": "Col.",
+        "activo": 1,
+        "clave": "06",
+        "id": 6,
+        "nombre": "Colima"
+    },
+    {
+        "abrev": "Chis.",
+        "activo": 1,
+        "clave": "07",
+        "id": 7,
+        "nombre": "Chiapas"
+    },
+    {
+        "abrev": "Chih.",
+        "activo": 1,
+        "clave": "08",
+        "id": 8,
+        "nombre": "Chihuahua"
+    },
+    {
+        "abrev": "CDMX",
+        "activo": 1,
+        "clave": "09",
+        "id": 9,
+        "nombre": "Ciudad de México"
+    },
+    {
+        "abrev": "Dgo.",
+        "activo": 1,
+        "clave": "10",
+        "id": 10,
+        "nombre": "Durango"
+    },
+    {
+        "abrev": "Gto.",
+        "activo": 1,
+        "clave": "11",
+        "id": 11,
+        "nombre": "Guanajuato"
+    },
+    {
+        "abrev": "Gro.",
+        "activo": 1,
+        "clave": "12",
+        "id": 12,
+        "nombre": "Guerrero"
+    },
+    {
+        "abrev": "Hgo.",
+        "activo": 1,
+        "clave": "13",
+        "id": 13,
+        "nombre": "Hidalgo"
+    },
+    {
+        "abrev": "Jal.",
+        "activo": 1,
+        "clave": "14",
+        "id": 14,
+        "nombre": "Jalisco"
+    },
+    {
+        "abrev": "Mex.",
+        "activo": 1,
+        "clave": "15",
+        "id": 15,
+        "nombre": "México"
+    },
+    {
+        "abrev": "Mich.",
+        "activo": 1,
+        "clave": "16",
+        "id": 16,
+        "nombre": "Michoacán de Ocampo"
+    },
+    {
+        "abrev": "Mor.",
+        "activo": 1,
+        "clave": "17",
+        "id": 17,
+        "nombre": "Morelos"
+    },
+    {
+        "abrev": "Nay.",
+        "activo": 1,
+        "clave": "18",
+        "id": 18,
+        "nombre": "Nayarit"
+    },
+    {
+        "abrev": "NL",
+        "activo": 1,
+        "clave": "19",
+        "id": 19,
+        "nombre": "Nuevo León"
+    },
+    {
+        "abrev": "Oax.",
+        "activo": 1,
+        "clave": "20",
+        "id": 20,
+        "nombre": "Oaxaca"
+    },
+    {
+        "abrev": "Pue.",
+        "activo": 1,
+        "clave": "21",
+        "id": 21,
+        "nombre": "Puebla"
+    },
+    {
+        "abrev": "Qro.",
+        "activo": 1,
+        "clave": "22",
+        "id": 22,
+        "nombre": "Querétaro"
+    },
+    {
+        "abrev": "Q. Roo",
+        "activo": 1,
+        "clave": "23",
+        "id": 23,
+        "nombre": "Quintana Roo"
+    },
+    {
+        "abrev": "SLP",
+        "activo": 1,
+        "clave": "24",
+        "id": 24,
+        "nombre": "San Luis Potosí"
+    },
+    {
+        "abrev": "Sin.",
+        "activo": 1,
+        "clave": "25",
+        "id": 25,
+        "nombre": "Sinaloa"
+    },
+    {
+        "abrev": "Son.",
+        "activo": 1,
+        "clave": "26",
+        "id": 26,
+        "nombre": "Sonora"
+    },
+    {
+        "abrev": "Tab.",
+        "activo": 1,
+        "clave": "27",
+        "id": 27,
+        "nombre": "Tabasco"
+    },
+    {
+        "abrev": "Tamps.",
+        "activo": 1,
+        "clave": "28",
+        "id": 28,
+        "nombre": "Tamaulipas"
+    },
+    {
+        "abrev": "Tlax.",
+        "activo": 1,
+        "clave": "29",
+        "id": 29,
+        "nombre": "Tlaxcala"
+    },
+    {
+        "abrev": "Ver.",
+        "activo": 1,
+        "clave": "30",
+        "id": 30,
+        "nombre": "Veracruz de Ignacio de la Llave"
+    },
+    {
+        "abrev": "Yuc.",
+        "activo": 1,
+        "clave": "31",
+        "id": 31,
+        "nombre": "Yucatán"
+    },
+    {
+        "abrev": "Zac.",
+        "activo": 1,
+        "clave": "32",
+        "id": 32,
+        "nombre": "Zacatecas"
+    },
+    {
+        "abrev": "Ags.",
+        "activo": 1,
+        "clave": "01",
+        "id": 1,
+        "nombre": "Aguascalientes"
+    },
+    {
+        "abrev": "BC",
+        "activo": 1,
+        "clave": "02",
+        "id": 2,
+        "nombre": "Baja California"
+    },
+    {
+        "abrev": "BCS",
+        "activo": 1,
+        "clave": "03",
+        "id": 3,
+        "nombre": "Baja California Sur"
+    },
+    {
+        "abrev": "Camp.",
+        "activo": 1,
+        "clave": "04",
+        "id": 4,
+        "nombre": "Campeche"
+    },
+    {
+        "abrev": "Coah.",
+        "activo": 1,
+        "clave": "05",
+        "id": 5,
+        "nombre": "Coahuila de Zaragoza"
+    },
+    {
+        "abrev": "Col.",
+        "activo": 1,
+        "clave": "06",
+        "id": 6,
+        "nombre": "Colima"
+    },
+    {
+        "abrev": "Chis.",
+        "activo": 1,
+        "clave": "07",
+        "id": 7,
+        "nombre": "Chiapas"
+    },
+    {
+        "abrev": "Chih.",
+        "activo": 1,
+        "clave": "08",
+        "id": 8,
+        "nombre": "Chihuahua"
+    },
+    {
+        "abrev": "CDMX",
+        "activo": 1,
+        "clave": "09",
+        "id": 9,
+        "nombre": "Ciudad de México"
+    },
+    {
+        "abrev": "Dgo.",
+        "activo": 1,
+        "clave": "10",
+        "id": 10,
+        "nombre": "Durango"
+    },
+    {
+        "abrev": "Gto.",
+        "activo": 1,
+        "clave": "11",
+        "id": 11,
+        "nombre": "Guanajuato"
+    },
+    {
+        "abrev": "Gro.",
+        "activo": 1,
+        "clave": "12",
+        "id": 12,
+        "nombre": "Guerrero"
+    },
+    {
+        "abrev": "Hgo.",
+        "activo": 1,
+        "clave": "13",
+        "id": 13,
+        "nombre": "Hidalgo"
+    },
+    {
+        "abrev": "Jal.",
+        "activo": 1,
+        "clave": "14",
+        "id": 14,
+        "nombre": "Jalisco"
+    },
+    {
+        "abrev": "Mex.",
+        "activo": 1,
+        "clave": "15",
+        "id": 15,
+        "nombre": "México"
+    },
+    {
+        "abrev": "Mich.",
+        "activo": 1,
+        "clave": "16",
+        "id": 16,
+        "nombre": "Michoacán de Ocampo"
+    },
+    {
+        "abrev": "Mor.",
+        "activo": 1,
+        "clave": "17",
+        "id": 17,
+        "nombre": "Morelos"
+    },
+    {
+        "abrev": "Nay.",
+        "activo": 1,
+        "clave": "18",
+        "id": 18,
+        "nombre": "Nayarit"
+    },
+    {
+        "abrev": "NL",
+        "activo": 1,
+        "clave": "19",
+        "id": 19,
+        "nombre": "Nuevo León"
+    },
+    {
+        "abrev": "Oax.",
+        "activo": 1,
+        "clave": "20",
+        "id": 20,
+        "nombre": "Oaxaca"
+    },
+    {
+        "abrev": "Pue.",
+        "activo": 1,
+        "clave": "21",
+        "id": 21,
+        "nombre": "Puebla"
+    },
+    {
+        "abrev": "Qro.",
+        "activo": 1,
+        "clave": "22",
+        "id": 22,
+        "nombre": "Querétaro"
+    },
+    {
+        "abrev": "Q. Roo",
+        "activo": 1,
+        "clave": "23",
+        "id": 23,
+        "nombre": "Quintana Roo"
+    },
+    {
+        "abrev": "SLP",
+        "activo": 1,
+        "clave": "24",
+        "id": 24,
+        "nombre": "San Luis Potosí"
+    },
+    {
+        "abrev": "Sin.",
+        "activo": 1,
+        "clave": "25",
+        "id": 25,
+        "nombre": "Sinaloa"
+    },
+    {
+        "abrev": "Son.",
+        "activo": 1,
+        "clave": "26",
+        "id": 26,
+        "nombre": "Sonora"
+    },
+    {
+        "abrev": "Tab.",
+        "activo": 1,
+        "clave": "27",
+        "id": 27,
+        "nombre": "Tabasco"
+    },
+    {
+        "abrev": "Tamps.",
+        "activo": 1,
+        "clave": "28",
+        "id": 28,
+        "nombre": "Tamaulipas"
+    },
+    {
+        "abrev": "Tlax.",
+        "activo": 1,
+        "clave": "29",
+        "id": 29,
+        "nombre": "Tlaxcala"
+    },
+    {
+        "abrev": "Ver.",
+        "activo": 1,
+        "clave": "30",
+        "id": 30,
+        "nombre": "Veracruz de Ignacio de la Llave"
+    },
+    {
+        "abrev": "Yuc.",
+        "activo": 1,
+        "clave": "31",
+        "id": 31,
+        "nombre": "Yucatán"
+    },
+    {
+        "abrev": "Zac.",
+        "activo": 1,
+        "clave": "32",
+        "id": 32,
+        "nombre": "Zacatecas"
+    }
+]

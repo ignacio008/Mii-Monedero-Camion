@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "376736853607",
+    "project_id": "monederoadmin",
+    "storage_bucket": "monederoadmin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376736853607:android:37de779e4ae877e01d6ec2",
+        "android_client_info": {
+          "package_name": "com.apps.scode.mega_monedero_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376736853607-2mo936tetbjodah4nebik5rhe3n9bebo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj9oRltXwMu_HEn2aG6Tl5hYWUYVr1o1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376736853607-2mo936tetbjodah4nebik5rhe3n9bebo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
