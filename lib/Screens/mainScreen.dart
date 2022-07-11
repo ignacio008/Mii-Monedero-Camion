@@ -25,7 +25,6 @@ import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class MainScreen extends StatefulWidget {
-
   CenserModel censerModel;
   MainScreen({this.censerModel});
 
@@ -34,20 +33,18 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   final double barHeight = 50.0;
   bool _showSpinner = false;
   List<UserModel> usuarios = [];
-  List<ActivacionesTotal>ventasTotal=[];
-  List<PagoModel>pagoMoldeList=[];
+  // List<ActivacionesTotal>ventasTotal=[];
+  List<PagoModel> pagoMoldeList = [];
 
-  void getlista(String idusuario)async{
-    pagoMoldeList=await FetchData().getPagosCamioneroActivaciones(idusuario);
+  void getlista(String idusuario) async {
+    pagoMoldeList = await FetchData().getPagosCamioneroActivaciones(idusuario);
     print('Tengo ${pagoMoldeList.length} cards Pagos');
-    setState(() {
-      
-    });
+    setState(() {});
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -57,11 +54,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    final double statusbarHeight = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    final double statusbarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
       body: ModalProgressHUD(
@@ -75,17 +68,22 @@ class _MainScreenState extends State<MainScreen> {
               child: Center(
                 child: Text(
                   "MII MONEDERO CHOFER",
-                  style: TextStyle(fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [MyColors.Colors.colorRedBackgroundDark, MyColors.Colors.colorRedBackgroundLight],
+                    colors: [
+                      MyColors.Colors.colorRedBackgroundDark,
+                      MyColors.Colors.colorRedBackgroundLight
+                    ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(0.5, 0.0),
                     stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp
-                ),
+                    tileMode: TileMode.clamp),
               ),
             ),
             SizedBox(
@@ -93,29 +91,24 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Text(
               "Bienvenido",
-              style: TextStyle(
-                  fontSize: 26.0,
-                  fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Text(
               widget.censerModel.name,
-              style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 10.0,
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 _showAlertCerrarSesion();
               },
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/4),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width / 4),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.red,
@@ -126,9 +119,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: Center(
                       child: Text(
                         "Cerrar Sesión",
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -140,38 +131,39 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Text(
               "Seleccione una opción",
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             Expanded(
               flex: 1,
               child: GestureDetector(
                 onTap: () async {
-                  if(widget.censerModel.suspended){
-                    Toast.show("Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema", context, duration: Toast.LENGTH_LONG);
-                  }
-                  else{
-                   // String cameraScanResult = await scanner.scan();
-                    String cameraScanResult = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.BARCODE);
+                  if (widget.censerModel.suspended) {
+                    Toast.show(
+                        "Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema",
+                        context,
+                        duration: Toast.LENGTH_LONG);
+                  } else {
+                    // String cameraScanResult = await scanner.scan();
+                    String cameraScanResult =
+                        await FlutterBarcodeScanner.scanBarcode(
+                            '#ff6666', 'Cancel', true, ScanMode.BARCODE);
                     print("el resuktado de la camara es ${cameraScanResult}");
-                  if(cameraScanResult.length>=10){
-                _processUserScan(cameraScanResult);
-                 }
-                   else{
-                     print("Lo sentimos no has selecionado un codigo QR valido");
-                   }
-                   
+                    if (cameraScanResult.length >= 10) {
+                      _processUserScan(cameraScanResult);
+                    } else {
+                      print(
+                          "Lo sentimos no has selecionado un codigo QR valido");
+                    }
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(top:20.0, left: 40.0, right: 40.0, bottom: 5.0),
+                  padding: const EdgeInsets.only(
+                      top: 20.0, left: 40.0, right: 40.0, bottom: 5.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.red[300],
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.red[300],
                     ),
                     child: Icon(
                       Icons.account_balance,
@@ -184,10 +176,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Text(
               "Escanear código",
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             // Expanded(
@@ -198,7 +187,7 @@ class _MainScreenState extends State<MainScreen> {
             //         Toast.show("Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema", context, duration: Toast.LENGTH_LONG);
             //       }
             //       else{
-                   
+
             //         Navigator.push(
             //             context,
             //             MaterialPageRoute(
@@ -234,21 +223,23 @@ class _MainScreenState extends State<MainScreen> {
             Expanded(
               flex: 1,
               child: GestureDetector(
-                onTap: (){
-                  if(widget.censerModel.suspended){
-                    Toast.show("Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema", context, duration: Toast.LENGTH_LONG);
-                  }
-                  else{
+                onTap: () {
+                  if (widget.censerModel.suspended) {
+                    Toast.show(
+                        "Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema",
+                        context,
+                        duration: Toast.LENGTH_LONG);
+                  } else {
                     _activacionesyCompras();
-                    
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(top:20.0, left: 40.0, right: 40.0, bottom: 5.0),
+                  padding: const EdgeInsets.only(
+                      top: 20.0, left: 40.0, right: 40.0, bottom: 5.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.red[300],
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.red[300],
                     ),
                     child: Icon(
                       Icons.attach_money,
@@ -261,10 +252,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             Text(
               "Mis últimas activaciones y compras",
-              style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -273,11 +261,10 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
       ),
-
     );
   }
 
-  void _showAlertCerrarSesion(){
+  void _showAlertCerrarSesion() {
     AlertDialog alertDialog = AlertDialog(
       title: Text(
         "Cerrar Sesión",
@@ -321,23 +308,21 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () {
             Authentication().singOut();
             Navigator.of(context).pop();
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => LoginScreen ()
-                ));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
           },
         ),
       ],
     );
 
-    showDialog(context: context, builder: (BuildContext context){
-      return alertDialog;
-    });
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alertDialog;
+        });
   }
 
-  _processUserScan(String data){
-
+  _processUserScan(String data) {
     CodeModel codeModel = CodeModel.fromJson(jsonDecode(data));
 
     DateTime activeUntil = DateFormat("yyyy-MM-dd").parse(codeModel.dateTime);
@@ -350,83 +335,64 @@ class _MainScreenState extends State<MainScreen> {
 
     print("Usuario inactivo");
     _getMiInfo(codeModel.id, false);
-
   }
 
   void _getMiInfo(String idPropio, bool active) async {
-
     final messages = await QuerysService().getUserbyID(miId: idPropio);
     usuarios = _getUserItem(messages.docs);
 
-   
-    ventasTotal=await FetchData().getVentas(widget.censerModel.id);
-    print('Tengo ${ventasTotal.length} cards');
+    // ventasTotal=await FetchData().getVentas(widget.censerModel.id);
+    // print('Tengo ${ventasTotal.length} cards');
     print(idPropio);
 
     setState(() {
       _showSpinner = false;
     });
-     
-    if(usuarios.length > 0){
 
+    if (usuarios.length > 0) {
       DateTime now = DateTime.now();
 
       int isActive = now.compareTo(usuarios[0].activeUntil);
 
-      if(isActive == 1){
-      print("Usuario inactivo");
+      if (isActive == 1) {
+        print("Usuario inactivo");
 
-      ActivacionesTotal iconModelVentas;
-      actuvacionesAtualizacion(ventasTotal[0],pagoMoldeList);
-    
+        ActivacionesTotal iconModelVentas;
+        // actuvacionesAtualizacion(ventasTotal[0],pagoMoldeList);
 
-
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ScanCodeScreen (usuarios[0], false,widget.censerModel, ventasTotal[0],pagoMoldeList)
-          )
-      );
-      
-    }
-    else{
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ScanCodeScreen (usuarios[0], true, widget.censerModel,ventasTotal[0],pagoMoldeList)
-            )
-        );
+                builder: (context) => ScanCodeScreen(
+                    usuarios[0], false, widget.censerModel, pagoMoldeList)));
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ScanCodeScreen(
+                    usuarios[0], true, widget.censerModel, pagoMoldeList)));
+      }
+    } else {
+      Toast.show(
+          "Ha ocurrido un error, por favor intente escanear de nuevo", context,
+          duration: Toast.LENGTH_LONG);
     }
-
-
-    }
-    else{
-      Toast.show("Ha ocurrido un error, por favor intente escanear de nuevo", context, duration: Toast.LENGTH_LONG);
-    }
-
-
-      
-      
-
   }
-  void _activacionesyCompras() async{
-    ventasTotal=await FetchData().getVentas(widget.censerModel.id);
-    print('Tengo ${ventasTotal.length} cards');
+
+  void _activacionesyCompras() async {
     print(widget.censerModel.id);
 
     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => TabViewActivacionesyCompras (widget.censerModel,ventasTotal[0],pagoMoldeList)
-                        )
-                    );
+        context,
+        MaterialPageRoute(
+            builder: (context) => TabViewActivacionesyCompras(
+                widget.censerModel, pagoMoldeList)));
   }
 
-  List<UserModel> _getUserItem(dynamic miInfo){
-
+  List<UserModel> _getUserItem(dynamic miInfo) {
     List<UserModel> miInfoList = [];
 
-    for(var datos in miInfo) {
+    for (var datos in miInfo) {
       final id_ = datos.data()['id'];
       final name_ = datos.data()['name'] ?? '';
       final email_ = datos.data()['email'] ?? '';
@@ -437,7 +403,6 @@ class _MainScreenState extends State<MainScreen> {
       final renovations_ = datos.data()['renovations'];
       final suspended_ = datos.data()['suspended'];
       final urlProfile_ = datos.data()['urlProfile'] ?? '';
-
 
       UserModel usuariosModel = UserModel(
         id: id_,
@@ -452,38 +417,8 @@ class _MainScreenState extends State<MainScreen> {
         urlProfile: urlProfile_,
       );
 
-
       miInfoList.add(usuariosModel);
     }
     return miInfoList;
   }
-
-     actuvacionesAtualizacion(iconModelVentas,iconmodellistTienda)async{
-    iconmodellistTienda.forEach((element)async{
-       print("Mi elemento es: ${element.idPago}");
-           if(element.idCamion==widget.censerModel.id){
-             
-          print("Mi elemento es: verdadero}");
-          if(element.activaciones==true){
-            
-          print("Mi elemento es: false}");
-    DateTime now=DateTime.now();
-    bool erroguardar=await QuerysService().UpdateCenserVentas(reference: FirebaseReferencias.REFERENCE_ActivacionesTotalCamionero, id:iconModelVentas.idCamion, collectionValues:ActivacionesTotal().toJsonBodyActualizarPago(
-       iconModelVentas.numeroActivacion==0?iconModelVentas.ciclosDoce+1:iconModelVentas.ciclosDoce,
-        iconModelVentas.numeroActivacion+12,
-        now,
-        22,
-        ),
-        );
-               bool erroguardars=await QuerysService().actualizarInfo(reference: "EstadoPagoCamionero", id:element.idPago , collectionValues:PagoModel().toJsonBodyEActivacionesActual(false),);
-               
-           }else{
-            //  bool erroguardars=await QuerysService().actualizarInfo(reference: "EstadoPagoCamionero", id:element.idPago , collectionValues:PagoModel().toJsonBodyEActivacionesActual(false),);
-           }
-           }
-         });
-    
-    }
-
-  
 }

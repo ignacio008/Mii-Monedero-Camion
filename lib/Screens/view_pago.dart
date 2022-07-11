@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mega_monedero_store/Firebase/fetch_data.dart';
 import 'package:mega_monedero_store/Firebase/firebase_referencias.dart';
 import 'package:mega_monedero_store/Firebase/querys.dart';
 import 'package:mega_monedero_store/Models/censerModel.dart';
 import 'package:mega_monedero_store/Models/pagoModel.dart';
+import 'package:mega_monedero_store/Models/stateCosto.dart';
 import 'package:mega_monedero_store/Models/ventasTotal.dart';
 import 'package:mega_monedero_store/Screens/mainScreen.dart';
 import 'package:mega_monedero_store/Screens/screen_pago.dart';
@@ -15,10 +17,8 @@ import 'package:toast/toast.dart';
 
 class ViewPago extends StatefulWidget {
   CenserModel censerModel;
-  ActivacionesTotal iconModelVentas;
-  List<PagoModel>iconmodellistTienda=[];
-  ActivacionesTotal iconModelVentasActual;
-  ViewPago(this.censerModel,this.iconModelVentas,this.iconModelVentasActual,);
+  List<PagoModel> iconmodellistTienda = [];
+  ViewPago(this.censerModel);
 
   @override
   State<ViewPago> createState() => _ViewPagoState();
@@ -26,69 +26,47 @@ class ViewPago extends StatefulWidget {
 
 class _ViewPagoState extends State<ViewPago> {
   List<CenserModel> censerList = [];
-    final double barHeight = 50.0;
+  final double barHeight = 50.0;
   bool _showSpinner = false;
 
-   String id_variable="";
-   String generateRandomString(int len) {
-      var r = Random();
-      const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-      id_variable= List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
-      return id_variable;
+  String id_variable = "";
+  String generateRandomString(int len) {
+    var r = Random();
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    id_variable =
+        List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+    return id_variable;
   }
-  DateTime now=DateTime.now();
-   actuvacionesAtualizacion()async{
-   }
-  //    widget.iconmodellistTienda.forEach((element)async{
-  //      print("Mi elemento es: ${element.idPago}");
-  //          if(element.idCamion==widget.censerModel.id){
-             
-  // print("Mi elemento es: verdadero}");
-  //  if(element.activaciones==true){
-     
-  // print("Mi elemento es: false}");
-  //             bool erroguardar=await QuerysService().UpdateCenserVentas(reference: FirebaseReferencias.REFERENCE_ActivacionesTotalCamionero, id:widget.iconModelVentas.idCamion, collectionValues:ActivacionesTotal().toJsonBodyActualizarPago(
-  //       widget.iconModelVentas.numeroActivacion==0?widget.iconModelVentas.ciclosDoce+1:widget.iconModelVentas.ciclosDoce,
-  //       widget.iconModelVentas.numeroActivacion+12,
-  //       now,
-  //       id_variable
-  //       ),
-  //       );
-  //       print(widget.censerModel.activacionesRestantes);
 
-        
-  //       print("Yo se que debo ejecturarrrr");
-  //        print(widget.censerModel.activacionesRestantes);
-  //              bool erroguardars=await QuerysService().actualizarInfo(reference: "EstadoPagoCamionero", id:element.idPago , collectionValues:PagoModel().toJsonBodyEActivacionesActual(false),);
-               
-  //          }else{
-  //            bool erroguardars=await QuerysService().actualizarInfo(reference: "EstadoPagoCamionero", id:element.idPago , collectionValues:PagoModel().toJsonBodyEActivacionesActual(false),);
-  //          }
-  //          }
-  //        });
-    
-  //   }
+  DateTime now = DateTime.now();
+  List<StateCosto> stateCosto = [];
+
+  void getTopChanele(String state) async {
+    stateCosto = await FetchData().getStateCostp(widget.censerModel.state);
+    var tamano = stateCosto.length;
+    print("Mi estaod es ${widget.censerModel.state}");
+    print("EL TAMAÑO DE LA LISTA ES: ${tamano}");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     generateRandomString(10);
 
-      print("Tengo ${widget.censerModel.id}");
+    print("Tengo ${widget.censerModel.id}");
     //actuvacionesAtualizacion();
-   
+    getTopChanele(widget.censerModel.state);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    
-    final double statusbarHeight = MediaQuery
-        .of(context)
-        .padding
-        .top;
+    final double statusbarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
-      body:ModalProgressHUD(
+      body: ModalProgressHUD(
         inAsyncCall: _showSpinner,
-        child:Stack(
+        child: Stack(
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(top: statusbarHeight),
@@ -97,8 +75,12 @@ class _ViewPagoState extends State<ViewPago> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(censerModel: widget.censerModel)));
+                    onTap: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  MainScreen(censerModel: widget.censerModel)));
                     },
                     child: Container(
                       width: 50.0,
@@ -111,7 +93,10 @@ class _ViewPagoState extends State<ViewPago> {
                   ),
                   Text(
                     "MII MONEDERO CHOFER",
-                    style: TextStyle(fontSize: 20.0, color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                   Container(
                     width: 50.0,
@@ -121,12 +106,14 @@ class _ViewPagoState extends State<ViewPago> {
               ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                    colors: [MyColors.Colors.colorRedBackgroundDark, MyColors.Colors.colorRedBackgroundLight],
+                    colors: [
+                      MyColors.Colors.colorRedBackgroundDark,
+                      MyColors.Colors.colorRedBackgroundLight
+                    ],
                     begin: const FractionalOffset(0.0, 0.0),
                     end: const FractionalOffset(0.5, 0.0),
                     stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp
-                ),
+                    tileMode: TileMode.clamp),
               ),
             ),
             Center(
@@ -154,8 +141,7 @@ class _ViewPagoState extends State<ViewPago> {
                       style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
-                          color: MyColors.Colors.colorBackgroundDark
-                      ),
+                          color: MyColors.Colors.colorBackgroundDark),
                     ),
                   ),
                   SizedBox(
@@ -163,40 +149,40 @@ class _ViewPagoState extends State<ViewPago> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text( widget.censerModel.activacionesRestantes==0
-                    ?"DEUDA"
-                    :"Te quedan ${widget.censerModel.activacionesRestantes} activaciones, ¿Deseas recargar +12?" ,
+                    child: Text(
+                      widget.censerModel.activacionesRestantes == 0
+                          ? "DEUDA"
+                          : "Te quedan ${widget.censerModel.activacionesRestantes} activaciones, ¿Deseas recargar +12?",
                       style: TextStyle(
                           fontSize: 16.0,
-                          color:widget.censerModel.activacionesRestantes==0? Colors.red: Colors.green ,
-                        fontWeight: FontWeight.bold
-                      ),
+                          color: widget.censerModel.activacionesRestantes == 0
+                              ? Colors.red
+                              : Colors.green,
+                          fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
                     height: 15.0,
                   ),
-                
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       pagoView();
-    // widget.iconModelVentas.numeroVenta==12?_showAlertVentaMaxima():
-    //                   _showAlertActive();
+                      // widget.iconModelVentas.numeroVenta==12?_showAlertVentaMaxima():
+                      //                   _showAlertActive();
                     },
                     child: Container(
                       width: 200.0,
                       height: 60.0,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
-                          color: Colors.blue
-                      ),
+                          color: Colors.blue),
                       child: Center(
                         child: Text(
                           "Pagar",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
+                            color: Colors.white,
+                            fontSize: 18,
                           ),
                         ),
                       ),
@@ -211,53 +197,59 @@ class _ViewPagoState extends State<ViewPago> {
     );
   }
 
-  void pagoView() async{
+  void pagoView() async {
+    DateTime now = DateTime.now();
+    setSpinnerStatus(false);
+    int numPago = 1;
+    int pagoTotal = 200;
+    if (stateCosto.isEmpty) {
+      StateCosto cuadro1 = StateCosto(
+          state: "E.U", locality: "E.U", costo: 1000, costoPorPasaje: 55);
+      stateCosto.add(cuadro1);
+    }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ScreenPago(stateCosto[0], widget.censerModel)));
 
-        DateTime now = DateTime.now();
-       setSpinnerStatus(false);
-      int numPago=1;
-      int pagoTotal=200;
-      
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ScreenPago(pagoTotal,widget.censerModel,widget.iconModelVentasActual
-     )));
+    // bool pagoError=await QuerysService().SavePago(reference: FirebaseReferencias.REFERENCE_PagoCamionero, id:id_variable, collectionValues:PagoModel().toJsonBody(
+    // id_variable,
+    // widget.censerModel.id,
+    // numPago,
+    // now,
+    // widget.censerModel.name,
+    // widget.censerModel.email,
+    // widget.censerModel.numberOwner,
+    // widget.censerModel.placa,
+    // ),
+    // );
 
-        // bool pagoError=await QuerysService().SavePago(reference: FirebaseReferencias.REFERENCE_PagoCamionero, id:id_variable, collectionValues:PagoModel().toJsonBody(
-        // id_variable,
-        // widget.censerModel.id,
-        // numPago,
-        // now,
-        // widget.censerModel.name,
-        // widget.censerModel.email,  
-        // widget.censerModel.numberOwner,  
-        // widget.censerModel.placa,      
-        // ),
-        // );
+    // bool erroguardar=await QuerysService().UpdateCenserVentas(reference: FirebaseReferencias.REFERENCE_ActivacionesTotalCamionero, id:widget.iconModelVentas.idCamion, collectionValues:ActivacionesTotal().toJsonBodyActualizar(
+    // widget.iconModelVentas.numeroActivacion==0?widget.iconModelVentas.ciclosDoce+1:widget.iconModelVentas.ciclosDoce,
 
-        // bool erroguardar=await QuerysService().UpdateCenserVentas(reference: FirebaseReferencias.REFERENCE_ActivacionesTotalCamionero, id:widget.iconModelVentas.idCamion, collectionValues:ActivacionesTotal().toJsonBodyActualizar(
-        // widget.iconModelVentas.numeroActivacion==0?widget.iconModelVentas.ciclosDoce+1:widget.iconModelVentas.ciclosDoce,
+    // widget.iconModelVentas.numeroActivacion+12,
 
-        // widget.iconModelVentas.numeroActivacion+12,
+    // now,
+    // ),
+    // );
 
-        // now,
-        // ),
-        // );
+    // if(pagoError){
+    //    Toast.show("Ha ocurrido un error en su pago", context, duration: Toast.LENGTH_LONG);
+    // }else{
 
-      // if(pagoError){
-      //    Toast.show("Ha ocurrido un error en su pago", context, duration: Toast.LENGTH_LONG);
-      // }else{
+    //   if(erroguardar){
+    // Toast.show("Ha ocurrido un problema en su informacion su folio es: ${id_variable}", context, duration: Toast.LENGTH_LONG);
+    // }else{
+    //    setSpinnerStatus(false);
+    //     Toast.show("Pago realizado con exito!!! Su Folio: ${id_variable}", context, duration: Toast.LENGTH_LONG);
+    //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(censerModel: widget.censerModel)));
 
-      //   if(erroguardar){
-      // Toast.show("Ha ocurrido un problema en su informacion su folio es: ${id_variable}", context, duration: Toast.LENGTH_LONG);
-      // }else{
-      //    setSpinnerStatus(false);
-      //     Toast.show("Pago realizado con exito!!! Su Folio: ${id_variable}", context, duration: Toast.LENGTH_LONG);
-      //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(censerModel: widget.censerModel)));
-        
-      //   }
-      // }
+    //   }
+    // }
   }
 
-   void setSpinnerStatus(bool status){
+  void setSpinnerStatus(bool status) {
     setState(() {
       _showSpinner = status;
     });
@@ -294,8 +286,6 @@ class _ViewPagoState extends State<ViewPago> {
   //     final paraderoRuta_ = datos.data()['paraderoRuta']??'';
   //     final imagenCamion_=datos.data()['camion']??'';
 
-
-
   //     CenserModel censerModel = CenserModel(
   //       id: id_,
   //       name: name_,
@@ -323,7 +313,6 @@ class _ViewPagoState extends State<ViewPago> {
   //       paraderoRuta:paraderoRuta_,
   //       imagenCamion:imagenCamion_,
   //     );
-
 
   //     miInfoList.add(censerModel);
   //   }

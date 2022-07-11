@@ -130,6 +130,10 @@ class QuerysService{
       }
     });
   }
+
+
+
+  
    void UpdateCenser({String idCenser,BuildContext context, Future function, Function errorFunction, Map<String, dynamic> collectionValues}) async {
     bool error = false;
 
@@ -169,6 +173,23 @@ class QuerysService{
 
 
    Future<bool> SaveCenserVentas({String reference, String id, Map<String, dynamic> collectionValues}) async {
+    bool error = false;
+    SetOptions setOptions = SetOptions(merge: true);
+    return await _fireStore.collection(reference).doc(id).set(collectionValues, setOptions).catchError((onError){
+      error = true;
+      return true;
+    }).then((onValue){
+      if(!error){
+        error = false;
+        return error;
+      }
+      else{
+        error = true;
+        return error;
+      }
+    });
+  }
+   Future<bool> SaveCamionero({String reference, String id, Map<String, dynamic> collectionValues}) async {
     bool error = false;
     SetOptions setOptions = SetOptions(merge: true);
     return await _fireStore.collection(reference).doc(id).set(collectionValues, setOptions).catchError((onError){

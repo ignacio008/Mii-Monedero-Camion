@@ -17,7 +17,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   double height;
   TextEditingController _emailController;
   TextEditingController _passwordController;
@@ -41,7 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -56,7 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: height,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                      colors: [MyColors.Colors.colorRedBackgroundDarkF, Colors.red[800]],
+                      colors: [
+                        MyColors.Colors.colorRedBackgroundDarkF,
+                        Colors.red[800]
+                      ],
                       end: FractionalOffset.topCenter,
                       begin: FractionalOffset.bottomCenter,
                       stops: [0.0, 1.0],
@@ -72,14 +73,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       Diagonal(
                         clipShadows: [ClipShadow(color: Colors.black)],
                         position: DiagonalPosition.BOTTOM_LEFT,
-                        clipHeight: height/15,
+                        clipHeight: height / 15,
                         child: Container(
                           color: MyColors.Colors.colorRedBackgroundDark,
-                          height: height/3.5,
+                          height: height / 3.5,
                         ),
                       ),
                       Container(
-                        height: height/3.5,
+                        height: height / 3.5,
                         child: Center(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -89,17 +90,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(
                                     fontSize: 28.0,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height:5.0),
+                              SizedBox(height: 5.0),
                               Text(
                                 "Chofer",
                                 style: TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
@@ -113,8 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                         fontSize: 26.0,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 25.0),
@@ -138,7 +136,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textInputAction: TextInputAction.done,
                                 keyboardType: TextInputType.emailAddress,
                                 controller: _emailController,
-                                 cursorColor:MyColors.Colors.colorBackgroundDark,
+                                cursorColor:
+                                    MyColors.Colors.colorBackgroundDark,
                                 //obscureText: true,
                                 style: TextStyle(
                                   fontFamily: 'Futura',
@@ -150,13 +149,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     hintStyle: TextStyle(
                                       fontFamily: 'Futura',
                                       color: Colors.white54,
-                                    )
-                                ),
+                                    )),
                               ),
                             )
                           ],
-                        )
-                    ),
+                        )),
                   ),
                   SizedBox(height: 15.0),
                   Padding(
@@ -178,7 +175,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 textInputAction: TextInputAction.done,
                                 controller: _passwordController,
-                                cursorColor:MyColors.Colors.colorBackgroundDark,
+                                cursorColor:
+                                    MyColors.Colors.colorBackgroundDark,
                                 obscureText: true,
                                 style: TextStyle(
                                   fontFamily: 'Futura',
@@ -190,41 +188,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                     hintStyle: TextStyle(
                                       fontFamily: 'Futura',
                                       color: Colors.white54,
-                                    )
-                                ),
+                                    )),
                               ),
                             )
                           ],
-                        )
-                    ),
+                        )),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           context: context,
-                          builder: (BuildContext context) => DialogResetContrasena(
-                            function: _reestablecerContrasena,
-                          )
-                      );
+                          builder: (BuildContext context) =>
+                              DialogResetContrasena(
+                                function: _reestablecerContrasena,
+                              ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20.0, right: 40.0),
                       child: Text(
                         "¿Olvidaste tu contraseña?",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold
-                        ),
+                            color: Colors.white, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.end,
                       ),
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       _loguearme();
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top:20.0, left: 40.0, right: 40.0),
+                      padding: const EdgeInsets.only(
+                          top: 20.0, left: 40.0, right: 40.0),
                       child: Container(
                         height: 45.0,
                         decoration: BoxDecoration(
@@ -236,38 +231,35 @@ class _LoginScreenState extends State<LoginScreen> {
                             "ENTRAR",
                             style: TextStyle(
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  
                   GestureDetector(
-                    onTap: (){
-                       Navigator.push(
-                           context,
-                           MaterialPageRoute(
-                                 builder: (context) => RegisterUserCamion()
-                           )
-                       );
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterUserCamion()));
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(top:15.0, left: 40.0, right: 40.0),
+                      padding: const EdgeInsets.only(
+                          top: 15.0, left: 40.0, right: 40.0),
                       child: Container(
                         height: 45.0,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: MyColors.Colors.colorRedBackgroundDark, width: 2.0)
-                        ),
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
+                                color: MyColors.Colors.colorRedBackgroundDark,
+                                width: 2.0)),
                         child: Center(
                           child: Text(
                             "REGÍSTRATE AQUÍ",
                             style: TextStyle(
                                 color: Colors.white,
-                              fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -282,7 +274,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void setSpinnerStatus(bool status){
+  void setSpinnerStatus(bool status) {
     setState(() {
       _showSpinner = status;
     });
@@ -294,20 +286,29 @@ class _LoginScreenState extends State<LoginScreen> {
     String email = _emailController.text.trim();
     String contrasena = _passwordController.text.trim();
 
-    if(!email.contains("@") || email.length < 3 ){
-      Toast.show("Su correo no está escrito correctamente, por favor, verifíquelo", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+    if (!email.contains("@") || email.length < 3) {
+      Toast.show(
+          "Su correo no está escrito correctamente, por favor, verifíquelo",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM);
       return;
     }
-    if(contrasena.length < 6 ){
-      Toast.show("Su contraseña debe ser minimo de 6 caracteres, por favor, verifíquela", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+    if (contrasena.length < 6) {
+      Toast.show(
+          "Su contraseña debe ser minimo de 6 caracteres, por favor, verifíquela",
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM);
       return;
     }
 
     setSpinnerStatus(true);
-    var auth = await Authentication().logingUser(email: _emailController.text.trim(), password: _passwordController.text.trim());
+    var auth = await Authentication().logingUser(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim());
 
-    if(auth.succes){
-
+    if (auth.succes) {
       User user = await Authentication().getCurrentUser();
       _getMiInfo(user.uid);
       /*
@@ -318,41 +319,36 @@ class _LoginScreenState extends State<LoginScreen> {
       //FocusScope.of(context).requestFocus(_focusNode);
       _emailController.text = "";
       _passwordController.text = "";
-    }
-    else{
-      Toast.show(auth.errorMessage, context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM);
+    } else {
+      Toast.show(auth.errorMessage, context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       setSpinnerStatus(false);
     }
   }
 
   void _getMiInfo(String idPropio) async {
-
     final messages = await QuerysService().getMiInfo(miId: idPropio);
     censerList = _getCenserItem(messages.docs);
 
-    if(censerList.length > 0){
-
+    if (censerList.length > 0) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => MainScreen (censerModel: censerList[0])
-          )
-      );
+              builder: (context) => MainScreen(censerModel: censerList[0])));
       setSpinnerStatus(false);
-
-    }
-    else{
+    } else {
       Authentication().singOut();
       setSpinnerStatus(false);
-      Toast.show("Ha ocurrido un error, por favor reinicie la aplicación", context, duration: Toast.LENGTH_LONG);
+      Toast.show(
+          "Ha ocurrido un error, por favor reinicie la aplicación", context,
+          duration: Toast.LENGTH_LONG);
     }
   }
 
-  List<CenserModel> _getCenserItem(dynamic miInfo){
-
+  List<CenserModel> _getCenserItem(dynamic miInfo) {
     List<CenserModel> miInfoList = [];
 
-    for(var datos in miInfo) {
+    for (var datos in miInfo) {
       final id_ = datos.data()['id'];
       final name_ = datos.data()['name'] ?? '';
       final email_ = datos.data()['email'] ?? '';
@@ -371,14 +367,14 @@ class _LoginScreenState extends State<LoginScreen> {
       final photos_ = datos.data()['photos'];
       final services_ = datos.data()['services'];
       final distanceTo_ = datos.data()['distanceTo'] ?? '';
-      final numUnidad_ =datos.data()['numUnidad']??'';
-      final placa_ = datos.data()['placa']??'';
-      final photoPLaca_ = datos.data()['photoPLaca']??'';
-      final photoLicencia_ = datos.data()['photoLicencia']??'';
-      final nameRuta_ = datos.data()['nameRuta']??'';
-      final paraderoRuta_ = datos.data()['paraderoRuta']??'';
-      final activacionesRestantes_=datos.data()['activacionesRestantes']??'';
-
+      final numUnidad_ = datos.data()['numUnidad'] ?? '';
+      final placa_ = datos.data()['placa'] ?? '';
+      final photoPLaca_ = datos.data()['photoPLaca'] ?? '';
+      final photoLicencia_ = datos.data()['photoLicencia'] ?? '';
+      final nameRuta_ = datos.data()['nameRuta'] ?? '';
+      final paraderoRuta_ = datos.data()['paraderoRuta'] ?? '';
+      final activacionesRestantes_ =
+          datos.data()['activacionesRestantes'] ?? '';
 
       CenserModel censerModel = CenserModel(
         id: id_,
@@ -396,18 +392,17 @@ class _LoginScreenState extends State<LoginScreen> {
         longitude: longitude_,
         nameOwner: nameOwner_,
         numberOwner: numberOwner_,
-        photos: photos_  ,
-        services: services_  ,
+        photos: photos_,
+        services: services_,
         distanceTo: distanceTo_,
-        numUnidad:numUnidad_,
-        placa:placa_,
-        photoPLaca:photoPLaca_,
-        photoLicencia:photoLicencia_,
-        nameRuta:nameRuta_,
-        paraderoRuta:paraderoRuta_,
-        activacionesRestantes:activacionesRestantes_,
+        numUnidad: numUnidad_,
+        placa: placa_,
+        photoPLaca: photoPLaca_,
+        photoLicencia: photoLicencia_,
+        nameRuta: nameRuta_,
+        paraderoRuta: paraderoRuta_,
+        activacionesRestantes: activacionesRestantes_,
       );
-
 
       miInfoList.add(censerModel);
     }
@@ -416,6 +411,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _reestablecerContrasena(String correo) async {
     await Authentication().resetPassword(email: correo);
-    Toast.show("Se ha enviado un correo electrónico al email que escribiste, ahí podrás reestablecer tu contraseña", context, duration: 8, gravity:  Toast.BOTTOM);
+    Toast.show(
+        "Se ha enviado un correo electrónico al email que escribiste, ahí podrás reestablecer tu contraseña",
+        context,
+        duration: 8,
+        gravity: Toast.BOTTOM);
   }
 }

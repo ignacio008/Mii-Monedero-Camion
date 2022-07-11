@@ -15,126 +15,94 @@ import 'all_pagos.dart';
 
 class TabViewActivacionesyCompras extends StatefulWidget {
   CenserModel censerModel;
-  ActivacionesTotal iconModelVentas;
-  List<PagoModel>iconmodellistTienda=[];
-  TabViewActivacionesyCompras(this.censerModel,this.iconModelVentas,this.iconmodellistTienda);
+  List<PagoModel> iconmodellistTienda = [];
+  TabViewActivacionesyCompras(this.censerModel, this.iconmodellistTienda);
 
   @override
-  State<TabViewActivacionesyCompras> createState() => _TabViewActivacionesyComprasState();
+  State<TabViewActivacionesyCompras> createState() =>
+      _TabViewActivacionesyComprasState();
 }
 
-class _TabViewActivacionesyComprasState extends State<TabViewActivacionesyCompras>with SingleTickerProviderStateMixin {
+class _TabViewActivacionesyComprasState
+    extends State<TabViewActivacionesyCompras>
+    with SingleTickerProviderStateMixin {
   TabController controlador;
-   DateTime now=DateTime.now();
-    String id_variable="";
-   String generateRandomString(int len) {
-      var r = Random();
-      const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-      id_variable= List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
-      return id_variable;
+  DateTime now = DateTime.now();
+  String id_variable = "";
+  String generateRandomString(int len) {
+    var r = Random();
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    id_variable =
+        List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+    return id_variable;
   }
-  //  actuvacionesAtualizacion()async{
-  //    widget.iconmodellistTienda.forEach((element)async{
-  //      print("Mi elemento es: ${element.idPago}");
-  //          if(element.idCamion==widget.censerModel.id){
-             
-  // print("Mi elemento es: verdadero}");
-  //  if(element.activaciones==true){
-     
-  // print("Mi elemento es: false}");
 
-  //             bool erroguardar=await QuerysService().UpdateCenserVentas(reference: FirebaseReferencias.REFERENCE_ActivacionesTotalCamionero, id:widget.iconModelVentas.idCamion, collectionValues:ActivacionesTotal().toJsonBodyActualizarPago(
-  //       widget.iconModelVentas.numeroActivacion==0?widget.iconModelVentas.ciclosDoce+1:widget.iconModelVentas.ciclosDoce,
-  //       widget.iconModelVentas.numeroActivacion+12,
-  //       now,
-  //       id_variable
-  //       ),
-  //       );
-  //       bool erroguardarCamionero=await QuerysService().UpdateCamionCenserActivaciones(reference: "Censers", id:widget.censerModel.id, collectionValues:{
-  //           'activacionesRestantes':widget.censerModel.activacionesRestantes+12,
-  //   }
-  //       );
-  //       print("se activo");
-  //              bool erroguardars=await QuerysService().actualizarInfo(reference: "EstadoPagoCamionero", id:element.idPago , collectionValues:PagoModel().toJsonBodyEActivacionesActual(false),);
-               
-  //          }else{
-  //           //  bool erroguardars=await QuerysService().actualizarInfo(reference: "EstadoPagoCamionero", id:element.idPago , collectionValues:PagoModel().toJsonBodyEActivacionesActual(false),);
-  //          }
-  //          }
-  //        });
-    
-  //   }
-    List<ActivacionesTotal>ventasTotal=[];
-    void getlista(String idusuario)async{
-   ventasTotal=await FetchData().getVentas(widget.censerModel.id);
-    print('Tengo ${ventasTotal.length} cards');
-    print(idusuario);
-    setState(() {
-      
-    });
-  }
-    
   @override
   void initState() {
-     controlador = new TabController(length: 2, vsync: this);
-     generateRandomString(10);
-     getlista(widget.censerModel.id);
+    controlador = new TabController(length: 2, vsync: this);
+    generateRandomString(10);
+    //  getlista(widget.censerModel.id);
     // TODO: implement initState
-    
+
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            "Activaciones y Compras"
-        ),
-        leading: IconButton(icon: Icon(Icons.arrow_back),
-        onPressed: () {
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(censerModel: widget.censerModel)));
-      },
+        title: Text("Activaciones y Compras"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        MainScreen(censerModel: widget.censerModel)));
+          },
         ),
       ),
-          bottomNavigationBar:  Material(
-           color:Colors.red,
-          child:  TabBar(
-            padding: const EdgeInsets.all(0),
-            labelPadding: const EdgeInsets.all(0),
-            controller:controlador,
-            tabs: [
-              
-              Tab(
-              icon:Icon(Icons.category,size:20),
-              text:"Mis activaciones",
+      bottomNavigationBar: Material(
+        color: Colors.red,
+        child: TabBar(
+          padding: const EdgeInsets.all(0),
+          labelPadding: const EdgeInsets.all(0),
+          controller: controlador,
+          tabs: [
+            Tab(
+              icon: Icon(Icons.category, size: 20),
+              text: "Mis activaciones",
+            ),
+            Tab(
+              icon: Icon(
+                Icons.shopping_bag,
+                size: 20,
               ),
-               Tab(
-                icon:Icon(Icons.shopping_bag,size:20,),
-                text:"Mis compras",
-              ),
-
-
-            ],
-          ),
-        ),
-      body: TabBarView(
-          controller:controlador,
-          children: [
-               SalesScreen (censerModel: widget.censerModel),
-              TodosPagos( widget.censerModel),
-             
-              
+              text: "Mis compras",
+            ),
           ],
         ),
-         floatingActionButton: FloatingActionButton.extended(
+      ),
+      body: TabBarView(
+        controller: controlador,
+        children: [
+          SalesScreen(censerModel: widget.censerModel),
+          TodosPagos(widget.censerModel),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ViewPago(widget.censerModel,widget.iconModelVentas,ventasTotal[0]))); 
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ViewPago(widget.censerModel)));
         },
         label: const Text('Recargar'),
         icon: const Icon(Icons.payment),
-        backgroundColor:  Colors.blue[700],
-      ), 
+        backgroundColor: Colors.blue[700],
+      ),
     );
   }
 }

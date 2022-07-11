@@ -104,7 +104,37 @@ class CenserModel{
           {
             'activacionesRestantes': activacionesRestantes,
             
-
-
+          };
+          String photoLicencia2;
+           Map<String, dynamic> toJsonBodyCamio(id,name,email,createdOn,description,category,addres,openHours,latitude,longitude,state,locality,nameOwner,numberOwner,suspended,photos,services,photoLicencia,distanceTo,numUnidad,placa,photoPLaca,photoLicencia2,nameRuta,paraderoRuta,activacionesRestantes,imagenCamion,) =>
+          {
+            'id' : id,
+           'name' : name,
+           'email' : email,
+           'createdOn' : createdOn,
+           'description' : description,
+           'category' : category,
+           'addres' : addres,
+           'openHours' : openHours,
+           'latitude' : latitude,
+           'longitude' : longitude,
+           'state' : state,
+           'locality' : locality,
+           'nameOwner' : nameOwner,
+           'numberOwner' : numberOwner,
+           'suspended' : suspended,
+           'photos' : photos,
+           'services' : services,
+           'licencia':photoLicencia,
+           'distanceTo' : distanceTo,
+           'numUnidad':numUnidad,
+           'placa':placa,
+           'photoPLaca':photoPLaca,
+           'photoLicencia':photoLicencia,
+           'nameRuta':nameRuta,
+           'paraderoRuta':paraderoRuta,
+           'activacionesRestantes':activacionesRestantes,
+           'camion':imagenCamion,
+            
           };
 }
