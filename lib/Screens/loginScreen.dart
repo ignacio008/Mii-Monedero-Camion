@@ -187,7 +187,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(
                                       fontFamily: 'Futura',
-                                      color: Colors.white54,
+                                      color: Colors.white54, 
+                                      
                                     )),
                               ),
                             )
