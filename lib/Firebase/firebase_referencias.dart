@@ -10,6 +10,7 @@ class FirebaseReferencias{
   static const String REFERENCE_ActivacionesTotalCamionero = "ActivacionesTotal";
   static const String REFERENCE_PagoCamionero = "PagoCamionero";
   static const String REFERENCE_EstadoPagoCamionero = "EstadoPagoCamionero";
+  static const String REFERENCE_Camiones = "camiones";
   
   static const String REFERENCE_Scaneos = "Scaneos";
 

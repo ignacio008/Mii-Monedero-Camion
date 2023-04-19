@@ -4,19 +4,16 @@ import 'package:toast/toast.dart';
 import 'app_textfield_login.dart';
 
 class DialogResetContrasena extends StatefulWidget {
-
   Function function;
   DialogResetContrasena({this.function});
-
 
   @override
   _DialogResetContrasenaState createState() => _DialogResetContrasenaState();
 }
 
 class _DialogResetContrasenaState extends State<DialogResetContrasena> {
-
   TextEditingController _emailController;
-
+  AutovalidateMode autovalid;
   @override
   void initState() {
     // TODO: implement initState
@@ -30,21 +27,18 @@ class _DialogResetContrasenaState extends State<DialogResetContrasena> {
     super.dispose();
     _emailController.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       child: _dialogContent(context),
     );
   }
 
-
-
-  Widget _dialogContent(BuildContext context){
+  Widget _dialogContent(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -57,8 +51,7 @@ class _DialogResetContrasenaState extends State<DialogResetContrasena> {
               blurRadius: 10.0,
               offset: const Offset(0.0, 10.0),
             )
-          ]
-      ),
+          ]),
       child: Column(
         mainAxisSize: MainAxisSize.min, // para hacer la carta compacta
         children: <Widget>[
@@ -68,8 +61,7 @@ class _DialogResetContrasenaState extends State<DialogResetContrasena> {
                 color: Colors.black54,
                 fontFamily: 'Barlow',
                 fontWeight: FontWeight.w500,
-                fontSize: 18.0
-            ),
+                fontSize: 18.0),
           ),
           SizedBox(
             height: 5.0,
@@ -82,8 +74,7 @@ class _DialogResetContrasenaState extends State<DialogResetContrasena> {
                   color: Colors.black54,
                   fontFamily: 'Barlow',
                   fontWeight: FontWeight.w500,
-                  fontSize: 15.0
-              ),
+                  fontSize: 15.0),
               textAlign: TextAlign.center,
             ),
           ),
@@ -103,48 +94,48 @@ class _DialogResetContrasenaState extends State<DialogResetContrasena> {
     );
   }
 
-  Widget _passwordField(){
+  Widget _passwordField() {
     return AppTextField(
-      autoValidate: false,
+      autoValidate: autovalid,
       obscureText: false,
       controller: _emailController,
       inputText: "ejemplo@gmail.com",
-      onSaved: (value){
-
-      },
-
+      onSaved: (value) {},
     );
   }
 
-  Widget _btnRegistrarse(){
+  Widget _btnRegistrarse() {
     return Container(
       height: 42.0,
       width: 220.0,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            side: BorderSide(color: Colors.black, width: 2.0)),
+      child: TextButton(
+        style: ButtonStyle(
+            textStyle: MaterialStateProperty.all<TextStyle>(
+              TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  side: BorderSide(color: Colors.black, width: 2.0)),
+            )),
         onPressed: () {
-          if(_emailController.text.length > 4 && _emailController.text.contains("@")){
+          if (_emailController.text.length > 4 &&
+              _emailController.text.contains("@")) {
             widget.function(_emailController.text.trim());
             Navigator.of(context).pop();
-          }
-          else{
-            Toast.show("Ingresa un correo válido", context, duration: Toast.LENGTH_LONG);
+          } else {
+            Toast.show("Ingresa un correo válido", context,
+                duration: Toast.LENGTH_LONG);
           }
         },
-        color: Colors.black,
-        textColor: Colors.white,
         child: Text("REESTABLECER".toUpperCase(),
             style: TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Futura'
-            )
-        ),
+                fontFamily: 'Futura')),
       ),
     );
   }
-
-
 }

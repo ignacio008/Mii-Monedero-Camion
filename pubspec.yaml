@@ -37,6 +37,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   change_app_package_name: ^0.1.2
   mercado_pago_mobile_checkout: ^0.1.1
+  soundpool: ^2.3.0
 
 dev_dependencies:
   flutter_test:

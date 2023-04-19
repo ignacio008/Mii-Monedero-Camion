@@ -142,12 +142,21 @@ class _ScreenPagoState extends State<ScreenPago> {
                                 Text("Cargando... Por favor espere"),
                               ],
                             )
-                          : RaisedButton(
-                              padding: EdgeInsets.all(20),
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(40.0),
-                              ),
-                              color: Colors.green,
+                          : TextButton(
+                              style: ButtonStyle(
+                                  textStyle:
+                                      MaterialStateProperty.all<TextStyle>(
+                                    TextStyle(
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(40.0),
+                                    ),
+                                  )),
                               child: Text("Gracias por tu recarga",
                                   style: TextStyle(
                                     color: Colors.white,

@@ -1039,7 +1039,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
             }),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -1113,7 +1113,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
             }),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -1179,7 +1179,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
             }),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(

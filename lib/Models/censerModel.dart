@@ -27,9 +27,10 @@ class CenserModel{
   String paraderoRuta;
   String imagenCamion;
   int activacionesRestantes;
+  String idCamion;
 
 
-  CenserModel({this.id, this.name, this.nameOwner, this.suspended, this.numberOwner, this.email, this.createdOn, this.description, this.state, this.locality, this.services, this.category, this.addres, this.openHours, this.distanceTo, this.photos, this.latitude, this.longitude, this.numUnidad, this.placa, this.photoPLaca,this.photoLicencia,this.nameRuta,this.paraderoRuta, this.imagenCamion,this.activacionesRestantes});
+  CenserModel({this.id, this.name, this.nameOwner, this.suspended, this.numberOwner, this.email, this.createdOn, this.description, this.state, this.locality, this.services, this.category, this.addres, this.openHours, this.distanceTo, this.photos, this.latitude, this.longitude, this.numUnidad, this.placa, this.photoPLaca,this.photoLicencia,this.nameRuta,this.paraderoRuta, this.imagenCamion,this.activacionesRestantes, this.idCamion});
 
 
 
@@ -65,6 +66,7 @@ class CenserModel{
       
       final activacionesRestantes_=datos.data()['activacionesRestantes']??'';
 
+      final idCamion_=datos.data()['idCamion']??'';
 
        CenserModel usuariosModel = CenserModel(
         id: id_,
@@ -94,6 +96,7 @@ class CenserModel{
         imagenCamion:imagenCamion_,
         
         activacionesRestantes:activacionesRestantes_,
+        idCamion:idCamion_,
       );
 
     return usuariosModel;

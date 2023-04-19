@@ -1,18 +1,20 @@
-class ScaneosModel{
+class LastScan{
   String idScaneos;
   String idCamion;
   String idUsuario;
   String city;
   String state;
   DateTime createOn;
-  String emailCamionScaneo;
+  String photoUser;
   String emailUsuario;
+  String idCamionBus;
+  DateTime isActiveDate;
 
-  ScaneosModel({this.idScaneos,this.idCamion,this.idUsuario,this.city,this.state,this.createOn,this.emailCamionScaneo,this.emailUsuario});
+  LastScan({this.idScaneos,this.idCamion,this.idUsuario,this.city,this.state,this.createOn,this.photoUser,this.emailUsuario,this.idCamionBus,this.isActiveDate});
 
 
-    List  <ScaneosModel> getScaner(dynamic miInfo){
-      List<ScaneosModel>iconmodelLits=[];
+    List  <LastScan> getScaner(dynamic miInfo){
+      List<LastScan>iconmodelLits=[];
 
     
         for(var datos in miInfo){
@@ -22,19 +24,23 @@ class ScaneosModel{
       final city_ =datos.data()['city']?? null;
       final state_ =datos.data()['state']?? null;
       final createOn_ =datos.data()['createOn']?? null;
-      final emailCamionScaneo_ =datos.data()['emailCamionScaneo']?? null;
+      final photoUser_ =datos.data()['photoUser']?? null;
       final emailUsuario_ =datos.data()['emailUsuario']?? null;
+      final idCamionBus_ = datos.data()['idCamionBus']?? null;
+      final isActiveDate_ =datos.data()['isActiveDate']?? null;
 
 
-      ScaneosModel scanerModel = ScaneosModel(
+      LastScan scanerModel = LastScan(
         idScaneos: idScaneos_,
         idCamion: idCamion_,
         idUsuario: idUsuario_,
         city:city_,
         state:state_,
         createOn: createOn_== null ? null :createOn_.toDate(),
-        emailCamionScaneo:emailCamionScaneo_,
+        photoUser:photoUser_,
         emailUsuario:emailUsuario_,
+        idCamionBus:idCamionBus_,
+        isActiveDate: isActiveDate_== null ? null :isActiveDate_.toDate(),
       );
 
        iconmodelLits.add(scanerModel);
@@ -42,7 +48,7 @@ class ScaneosModel{
       return iconmodelLits;
      }
 
-       Map<String, dynamic> toJsonBodyScaner(idScaneos,idCamion,idUsuario,city,state,createOn,emailCamionScaneo,emailUsuario, photoUser,isActiveDate,idCamionBus) =>
+       Map<String, dynamic> toJsonBodyScaner(idScaneos,idCamion,idUsuario,city,state,createOn,photoUser,emailUsuario,idCamionBus,isActiveDate) =>
           {
             'idScaneos': idScaneos,
             'idCamion': idCamion,
@@ -50,10 +56,9 @@ class ScaneosModel{
             'city':city,
             'state':state,
             'createOn':createOn,
-            'emailCamionScaneo':emailCamionScaneo,
-            'emailUsuario':emailUsuario,
             'photoUser':photoUser,
-            'isActiveDate':isActiveDate,
+            'emailUsuario':emailUsuario,
             'idCamionBus':idCamionBus,
+            'isActiveDate':isActiveDate,
           };
 }

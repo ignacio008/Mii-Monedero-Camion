@@ -94,13 +94,13 @@ class _ItemFotoEstablecimientoState extends State<ItemFotoEstablecimiento> {
                     content: Text("¿Desea eliminar esta foto?"),
                     actions: <Widget>[
                       // usually buttons at the bottom of the dialog
-                      FlatButton(
+                      TextButton(
                         child: new Text("Cancelar"),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
-                      FlatButton(
+                      TextButton(
                         child: new Text("Eliminar"),
                         onPressed: () {
                           // AQUI HAY QUE ACTUALIZAR

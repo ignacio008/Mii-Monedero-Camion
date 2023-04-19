@@ -8,6 +8,7 @@ import 'package:mega_monedero_store/Firebase/firebase_referencias.dart';
 import 'package:mega_monedero_store/Firebase/querys.dart';
 import 'package:mega_monedero_store/Models/censerModel.dart';
 import 'package:mega_monedero_store/Models/codeModel.dart';
+import 'package:mega_monedero_store/Models/lastScan.dart';
 import 'package:mega_monedero_store/Models/pagoModel.dart';
 import 'package:mega_monedero_store/Models/userModel.dart';
 import 'package:mega_monedero_store/Models/ventasTotal.dart';
@@ -17,7 +18,9 @@ import 'package:mega_monedero_store/Screens/editCenserScreen.dart';
 import 'package:mega_monedero_store/Screens/loginScreen.dart';
 import 'package:mega_monedero_store/Screens/salesScreen.dart';
 import 'package:mega_monedero_store/Screens/scanCodeScreen.dart';
+import 'package:mega_monedero_store/Screens/screenLastScaner.dart';
 import 'package:mega_monedero_store/Screens/tab_view_ayc.dart';
+import 'package:mega_monedero_store/Screens/vinculadoCamion.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:toast/toast.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
@@ -38,12 +41,20 @@ class _MainScreenState extends State<MainScreen> {
   List<UserModel> usuarios = [];
   // List<ActivacionesTotal>ventasTotal=[];
   List<PagoModel> pagoMoldeList = [];
+  List<LastScan> lastScanModelList = [];
 
   void getlista(String idusuario) async {
     pagoMoldeList = await FetchData().getPagosCamioneroActivaciones(idusuario);
     print('Tengo ${pagoMoldeList.length} cards Pagos');
     setState(() {});
   }
+
+// Aqui el ultimo scan
+  // void getlistLastScan(String idCamion) async {
+  //   lastScanModelList = await FetchData().getPagosCamioneroActivaciones(idCamion);
+  //   print('Tengo ${lastScanModelList.length} cards Pagos');
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
@@ -135,7 +146,7 @@ class _MainScreenState extends State<MainScreen> {
               textAlign: TextAlign.center,
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: GestureDetector(
                 onTap: () async {
                   if (widget.censerModel.suspended) {
@@ -221,7 +232,7 @@ class _MainScreenState extends State<MainScreen> {
             //   textAlign: TextAlign.center,
             // ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: GestureDetector(
                 onTap: () {
                   if (widget.censerModel.suspended) {
@@ -255,6 +266,48 @@ class _MainScreenState extends State<MainScreen> {
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
+
+            Expanded(
+              flex: 2,
+              child: GestureDetector(
+                onTap: () {
+                  if (widget.censerModel.idCamion.isEmpty) {
+                    Toast.show(
+                        "Lo sentimos no estas vinculado con ningun camion, intente volver a Scanear y reinicie la aplicacion",
+                        context,
+                        duration: Toast.LENGTH_LONG);
+                  } else {
+                    Toast.show("Ultimo Scaneo", context,
+                        duration: Toast.LENGTH_LONG);
+                    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ScreenLastScaner(
+                 censerModel:   widget.censerModel,iconmodellistTienda:pagoMoldeList)));
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20.0, left: 40.0, right: 40.0, bottom: 5.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.red[300],
+                    ),
+                    child: Icon(
+                      Icons.attach_money,
+                      size: 50.0,
+                      color: MyColors.Colors.colorRedBackgroundDark,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              "Últimos Scaneos",
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
             SizedBox(
               height: 20.0,
             )
@@ -281,7 +334,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -295,7 +348,7 @@ class _MainScreenState extends State<MainScreen> {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text(
             "Aceptar",
             style: TextStyle(
@@ -325,16 +378,20 @@ class _MainScreenState extends State<MainScreen> {
   _processUserScan(String data) {
     CodeModel codeModel = CodeModel.fromJson(jsonDecode(data));
 
-    DateTime activeUntil = DateFormat("yyyy-MM-dd").parse(codeModel.dateTime);
-    DateTime now = DateTime.now();
+    if (codeModel.dateTime == null) {
+      print("h");
+      _getVincular(codeModel.id);
+    } else {
+      DateTime activeUntil = DateFormat("yyyy-MM-dd").parse(codeModel.dateTime);
+      DateTime now = DateTime.now();
 
-    int isActive = now.compareTo(activeUntil);
-    setState(() {
-      _showSpinner = true;
-    });
-
-    print("Usuario inactivo");
-    _getMiInfo(codeModel.id, false);
+      int isActive = now.compareTo(activeUntil);
+      setState(() {
+        _showSpinner = true;
+      });
+      print("Usuario inactivo");
+      _getMiInfo(codeModel.id, false);
+    }
   }
 
   void _getMiInfo(String idPropio, bool active) async {
@@ -344,7 +401,6 @@ class _MainScreenState extends State<MainScreen> {
     // ventasTotal=await FetchData().getVentas(widget.censerModel.id);
     // print('Tengo ${ventasTotal.length} cards');
     print(idPropio);
-
     setState(() {
       _showSpinner = false;
     });
@@ -360,23 +416,75 @@ class _MainScreenState extends State<MainScreen> {
         ActivacionesTotal iconModelVentas;
         // actuvacionesAtualizacion(ventasTotal[0],pagoMoldeList);
 
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ScanCodeScreen(
-                    usuarios[0], false, widget.censerModel, pagoMoldeList)));
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => ScanCodeScreen(
+        //             usuarios[0], false, widget.censerModel, pagoMoldeList)));
       } else {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ScanCodeScreen(
-                    usuarios[0], true, widget.censerModel, pagoMoldeList)));
+        // Navigator.pushReplacement(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => ScanCodeScreen(
+        //             usuarios[0], true, widget.censerModel, pagoMoldeList)));
       }
     } else {
       Toast.show(
           "Ha ocurrido un error, por favor intente escanear de nuevo", context,
           duration: Toast.LENGTH_LONG);
     }
+  }
+
+  void _getVincular(String idCamion) async {
+    print(idCamion);
+
+    setState(() {
+      _showSpinner = false;
+    });
+
+    var now = DateTime.now();
+    QuerysService().updateCamiones(
+        idCamion: idCamion,
+        errorFunction: _cancelSpinnerError,
+        function: _cancelSpinnerSuccesful,
+        context: context,
+        collectionValues: {
+          'idCamion': idCamion,
+          'upDateCamionero': now,
+          'idCamionero': widget.censerModel.id,
+        });
+
+    QuerysService().updateCamioneroIdCamion(
+        idCamion: widget.censerModel.id,
+        errorFunction: _cancelSpinnerError,
+        function: _cancelSpinnerSuccesful,
+        context: context,
+        collectionValues: {
+          'idCamion': idCamion,
+        });
+  }
+
+  _cancelSpinnerError() {
+    setState(() {
+      _showSpinner = false;
+    });
+  }
+
+  _cancelSpinnerSuccesful() {
+    setState(() {
+      _showSpinner = false;
+    });
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VincularCamion(widget.censerModel)));
+  }
+
+  void setSpinnerStatus(bool status) {
+    setState(() {
+      _showSpinner = status;
+    });
   }
 
   void _activacionesyCompras() async {

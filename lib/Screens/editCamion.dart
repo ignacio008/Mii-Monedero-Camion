@@ -976,7 +976,7 @@ List<CenserModel> censerList = [];
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -1048,7 +1048,7 @@ List<CenserModel> censerList = [];
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -1121,7 +1121,7 @@ List<CenserModel> censerList = [];
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(

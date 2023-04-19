@@ -3,6 +3,7 @@
 
 import 'package:mega_monedero_store/Firebase/querys.dart';
 import 'package:mega_monedero_store/Models/censerModel.dart';
+import 'package:mega_monedero_store/Models/lastScan.dart';
 import 'package:mega_monedero_store/Models/pagoModel.dart';
 import 'package:mega_monedero_store/Models/scaneosTotal.dart';
 import 'package:mega_monedero_store/Models/stateCosto.dart';

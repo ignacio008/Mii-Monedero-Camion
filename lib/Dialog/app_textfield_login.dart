@@ -9,7 +9,7 @@ class AppTextField extends StatelessWidget{
   final TextEditingController controller;
   final FocusNode focusNode;
   final FormFieldValidator<String> validator;
-  final bool autoValidate;
+  final AutovalidateMode  autoValidate;
 
   //final IconButton iconButton;
 
@@ -23,7 +23,7 @@ class AppTextField extends StatelessWidget{
         color: Colors.white70,
         borderRadius: BorderRadius.all(Radius.circular(4.0)),
         child: TextFormField(
-          autovalidate: autoValidate,
+          autovalidateMode: autoValidate,
           validator: validator,
           focusNode: focusNode,
           controller: controller,

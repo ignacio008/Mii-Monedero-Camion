@@ -24,8 +24,11 @@ class ScanCodeScreen extends StatefulWidget {
   CenserModel censerModel;
   bool active;
   List<PagoModel> iconmodellistTienda = [];
+  String photoUser;
+  DateTime isActiveDate;
+  String idCamionBus;
   ScanCodeScreen(
-      this.userModel, this.active, this.censerModel, this.iconmodellistTienda);
+      this.userModel, this.active, this.censerModel, this.iconmodellistTienda, this.photoUser,this.isActiveDate,this.idCamionBus);
 
   @override
   _ScanCodeScreenState createState() => _ScanCodeScreenState();
@@ -86,7 +89,10 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
             widget.censerModel.state,
             now,
             widget.censerModel.email,
-            widget.userModel.email),
+            widget.userModel.email,
+            widget.photoUser,
+            widget.isActiveDate,
+            widget.idCamionBus),
       );
     } else {
       print("Estoy incativo ${widget.active}");
@@ -273,7 +279,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -287,7 +293,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text(
             "Pagar",
             style: TextStyle(
@@ -334,7 +340,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Cancelar",
             style: TextStyle(
@@ -348,7 +354,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text(
             "Aceptar",
             style: TextStyle(
@@ -483,7 +489,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text(
             "Aceptar",
             style: TextStyle(

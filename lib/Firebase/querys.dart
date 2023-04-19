@@ -40,9 +40,22 @@ class QuerysService{
   Future<QuerySnapshot> getUserbyID({String miId}) async{
     return await _fireStore.collection(FirebaseReferencias.REFERENCE_USERS).where('id', isEqualTo: miId).get();
   }
+  Future<QuerySnapshot> getCamionesbyID({String idCamion}) async{
+    return await _fireStore.collection(FirebaseReferencias.REFERENCE_Camiones).where('idCamion', isEqualTo: idCamion).get();
+  }
   Future<QuerySnapshot> getTopPagos(String miId) async{
     return await _fireStore.collection(FirebaseReferencias.REFERENCE_EstadoPagoCamionero).where('idCamion', isEqualTo: miId).get();
   }
+
+ Stream<List<QuerySnapshot>> getMessages(String miId) {
+    Stream userMessages = _fireStore
+        .collection("users").where('idCamion', isEqualTo: miId)
+        .snapshots();
+
+ }
+
+
+
 
   void SaveUsuario({String idUsuario,BuildContext context, Function function, Function errorFunction, Map<String, dynamic> collectionValues}) async {
     bool error = false;
@@ -110,6 +123,39 @@ class QuerysService{
     }).then((onValue){
       if(!error){
         Toast.show("¡Información actualizada exitosamente!", context, duration: Toast.LENGTH_LONG);
+      }
+    });
+  }
+
+  void updateCamiones({String idCamion,BuildContext context, Function function, Function errorFunction, Map<String, dynamic> collectionValues}) async {
+    bool error = false;
+
+    await _fireStore.collection(FirebaseReferencias.REFERENCE_Camiones).doc(idCamion).update(collectionValues).catchError((onError){
+      Toast.show("Ha ocurrido un error, por favor, intente de nuevo", context, duration: Toast.LENGTH_LONG);
+      error = true;
+    }).then((onValue){
+      if(!error){
+        Toast.show("¡Información subida exitosamente!", context, duration: Toast.LENGTH_LONG);
+        function();
+      }
+      else{
+        errorFunction();
+      }
+    });
+  }
+  void updateCamioneroIdCamion({String idCamion,BuildContext context, Function function, Function errorFunction, Map<String, dynamic> collectionValues}) async {
+    bool error = false;
+
+    await _fireStore.collection(FirebaseReferencias.REFERENCE_CENSERS).doc(idCamion).update(collectionValues).catchError((onError){
+      Toast.show("Ha ocurrido un error, por favor, intente de nuevo Censers", context, duration: Toast.LENGTH_LONG);
+      error = true;
+    }).then((onValue){
+      if(!error){
+        Toast.show("¡Información subida exitosamente!", context, duration: Toast.LENGTH_LONG);
+        function();
+      }
+      else{
+        errorFunction();
       }
     });
   }
