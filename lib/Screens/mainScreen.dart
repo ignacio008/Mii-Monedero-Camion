@@ -179,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: Icon(
                       Icons.account_balance,
                       size: 50.0,
-                      color: MyColors.Colors.colorRedBackgroundDark,
+                      color: Color.fromARGB(255, 89, 9, 9),
                     ),
                   ),
                 ),
@@ -255,7 +255,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: Icon(
                       Icons.attach_money,
                       size: 50.0,
-                      color: MyColors.Colors.colorRedBackgroundDark,
+                      color: Color.fromARGB(255, 89, 9, 9),
                     ),
                   ),
                 ),
@@ -276,14 +276,16 @@ class _MainScreenState extends State<MainScreen> {
                         "Lo sentimos no estas vinculado con ningun camion, intente volver a Scanear y reinicie la aplicacion",
                         context,
                         duration: Toast.LENGTH_LONG);
+                    return;
                   } else {
                     Toast.show("Ultimo Scaneo", context,
                         duration: Toast.LENGTH_LONG);
                     Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ScreenLastScaner(
-                 censerModel:   widget.censerModel,iconmodellistTienda:pagoMoldeList)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ScreenLastScaner(
+                                censerModel: widget.censerModel,
+                                iconmodellistTienda: pagoMoldeList)));
                   }
                 },
                 child: Padding(
@@ -295,9 +297,9 @@ class _MainScreenState extends State<MainScreen> {
                       color: Colors.red[300],
                     ),
                     child: Icon(
-                      Icons.attach_money,
+                      Icons.qr_code_scanner_sharp,
                       size: 50.0,
-                      color: MyColors.Colors.colorRedBackgroundDark,
+                      color: Color.fromARGB(255, 89, 9, 9),
                     ),
                   ),
                 ),
@@ -380,7 +382,17 @@ class _MainScreenState extends State<MainScreen> {
 
     if (codeModel.dateTime == null) {
       print("h");
-      _getVincular(codeModel.id);
+      if (codeModel.locality == widget.censerModel.locality &&
+          codeModel.state == widget.censerModel.state) {
+        _getVincular(codeModel.id);
+      } else {
+        print("Error no es el mismo ciudad");
+        Toast.show(
+          "Error no estas registrado en la misma ciudad y municipio que el camion", context,
+          duration: Toast.LENGTH_LONG);
+        print(widget.censerModel.locality);
+        print( widget.censerModel.state);
+      }
     } else {
       DateTime activeUntil = DateFormat("yyyy-MM-dd").parse(codeModel.dateTime);
       DateTime now = DateTime.now();

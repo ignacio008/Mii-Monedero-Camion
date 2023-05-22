@@ -74,6 +74,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
     return id_variable;
   }
 
+
   scaneoTrue() async {
     if (widget.active == true) {
       print("Estoy ${widget.active}");
