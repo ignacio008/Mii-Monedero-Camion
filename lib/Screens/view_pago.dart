@@ -204,7 +204,7 @@ class _ViewPagoState extends State<ViewPago> {
     int pagoTotal = 200;
     if (stateCosto.isEmpty) {
       StateCosto cuadro1 = StateCosto(
-          state: "E.U", locality: "E.U", costo: 1000, costoPorPasaje: 55);
+          state: "E.U", locality: "E.U", costo: 100, costoPorPasaje: 55);
       stateCosto.add(cuadro1);
     }
     Navigator.pushReplacement(

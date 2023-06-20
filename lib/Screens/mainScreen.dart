@@ -271,7 +271,7 @@ class _MainScreenState extends State<MainScreen> {
               flex: 2,
               child: GestureDetector(
                 onTap: () {
-                  if (widget.censerModel.idCamion.isEmpty) {
+                  if (widget.censerModel.idCamion==null) {
                     Toast.show(
                         "Lo sentimos no estas vinculado con ningun camion, intente volver a Scanear y reinicie la aplicacion",
                         context,

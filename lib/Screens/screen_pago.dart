@@ -50,7 +50,7 @@ class _ScreenPagoState extends State<ScreenPago> {
   String _mesage = "";
   bool _pagando = false;
   DateTime now = DateTime.now();
-  double numPago = 200.00;
+  double numPago = 100.00;
   _createOrderPago() async {
     DateTime now = DateTime.now();
 
@@ -78,6 +78,7 @@ class _ScreenPagoState extends State<ScreenPago> {
 
     generateRandomString(12);
     _createOrderPago();
+    print("EL COSTO QUE TENGO REGISTRADO ES: ${widget.statecosto.costo}");
     super.initState();
   }
 
@@ -197,7 +198,7 @@ class _ScreenPagoState extends State<ScreenPago> {
     } else if (_pagando == false) {
       if (event.data()['preference_id'] != null) {
         var response = await MercadoPagoMobileCheckout.startCheckout(
-            "TEST-32a3ac49-f045-41ac-95df-c9fa000f6eea",
+            "APP_USR-c3d15ba1-10f6-469d-b8c8-c46a4c2f2b58",
             event.data()['preference_id']);
         print(response);
 

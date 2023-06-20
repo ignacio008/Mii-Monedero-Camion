@@ -24,7 +24,7 @@ class ScreenLastScaner extends StatefulWidget {
 class _ScreenLastScanerState extends State<ScreenLastScaner> {
   List<UserModel> usuarios = [];
   Color colores = Colors.red[800];
-  Color coloresRed=Color.fromARGB(255, 255, 96, 107);
+  Color coloresRed = Color.fromARGB(255, 255, 96, 107);
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
@@ -36,20 +36,20 @@ class _ScreenLastScanerState extends State<ScreenLastScaner> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Datos del pasajero"),
-  elevation: 0.0,
+        elevation: 0.0,
         flexibleSpace: Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(0.5, 0.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp,
-          colors: <Color>[MyColors.Colors.colorRedBackgroundDark,
-                      MyColors.Colors.colorRedBackgroundLight]),
-      ),
-    ),
-  
-
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(0.5, 0.0),
+                stops: [0.0, 1.0],
+                tileMode: TileMode.clamp,
+                colors: <Color>[
+                  MyColors.Colors.colorRedBackgroundDark,
+                  MyColors.Colors.colorRedBackgroundLight
+                ]),
+          ),
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _usersStream,
@@ -93,118 +93,145 @@ class _ScreenLastScanerState extends State<ScreenLastScaner> {
               String photoUser = data['photoUser'] ?? 'default value';
               String emailUsuario =
                   data['emailUsuario'] ?? 'Valor No Encontrado';
-              DateTime dateCreate =
-                  data['createOn'].toDate() ?? 'No hay valor';
+              DateTime dateCreate = data['createOn'].toDate() ?? 'No hay valor';
               DateTime isActiveDate =
                   data['isActiveDate'].toDate() ?? 'No hay valor';
               DateTime now = DateTime.now();
               String idUsuario = data['idUsuario'] ?? 'Valor No Encontrado';
-              String idCamionBus =
-                  data['idCamionBus'] ?? 'Valor No Encontrado';
+              String idCamionBus = data['idCamionBus'] ?? 'Valor No Encontrado';
               String formattedDate =
                   DateFormat('dd-MM-yyyy').format(isActiveDate);
               int isActive = now.compareTo(isActiveDate);
-
+              String idCamion = data['idCamion'] ?? 'Valor NO Encontrado';
               if (isActive == 1) {
                 sound();
-                  colores = Colors.red[800];
-                  coloresRed=Color.fromARGB(255, 255, 96, 107);
+                colores = Colors.red[800];
+                coloresRed = Color.fromARGB(255, 255, 96, 107);
               } else {
                 soundActivo();
                 colores = Colors.green[700];
-                coloresRed=Color.fromARGB(255, 32, 171, 130);
+                coloresRed = Color.fromARGB(255, 32, 171, 130);
               }
               return Container(
                 decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [
-                      coloresRed,
-                      colores
-                    ],
-                    end: FractionalOffset.topCenter,
-                    begin: FractionalOffset.bottomCenter,
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.repeated),
-              ),
+                  gradient: LinearGradient(
+                      colors: [coloresRed, colores],
+                      end: FractionalOffset.topCenter,
+                      begin: FractionalOffset.bottomCenter,
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.repeated),
+                ),
                 height: MediaQuery.of(context).size.height,
-                child: Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100.0),
-                        child: FadeInImage.assetNetwork(
-                          placeholder: "assets/images/fondo_negro.jpg",
-                          image: photoUser,
-                          fit: BoxFit.cover,
-                          width: 140.0,
-                          height: 140.0,
-                          fadeInDuration: Duration(milliseconds: 1000),
+                child: widget.censerModel.idCamion == idCamion
+                    ? Center(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.1,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                print("el iddddd del camionero es ${idCamion}");
+                                print(
+                                    "el id del censer es ${widget.censerModel.id}");
+                              },
+                              child: Icon(
+                                Icons.warning_amber_rounded,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                                size: 130,
+                              ),
+                            ),
+                            Center(
+                              child: Text(
+                                "Lo sentimos tienes que vincularte a un camion primero",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    : Center(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100.0),
+                              child: FadeInImage.assetNetwork(
+                                placeholder: "assets/images/fondo_negro.jpg",
+                                image: photoUser,
+                                fit: BoxFit.cover,
+                                width: 140.0,
+                                height: 140.0,
+                                fadeInDuration: Duration(milliseconds: 1000),
+                              ),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                            Text(
+                              "Email: ${emailUsuario}",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                            Text(
+                              "Fecha de vencimiento: ${formattedDate}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                            isActive == 1
+                                ? ElevatedButton.icon(
+                                    onPressed: () {
+                                      activateUsers(idUsuario, photoUser,
+                                          isActiveDate, idCamionBus);
+                                    },
+                                    icon: Icon(
+                                      Icons.local_activity_sharp,
+                                      color: Colors.black,
+                                    ),
+                                    label: Text(
+                                      "Activar suscripción",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        padding: EdgeInsets.all(20.0),
+                                        shadowColor: Colors.black,
+                                        side: BorderSide(
+                                            color: Colors.black, width: 1),
+                                        shape: StadiumBorder()),
+                                  )
+                                : Column(
+                                    children: [
+                                      Text(
+                                        "Activo",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 25),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02,
+                                      ),
+                                      Icon(
+                                        Icons.check_circle_outline_outlined,
+                                        color: Colors.white,
+                                        size: 130,
+                                      )
+                                    ],
+                                  ),
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Text(
-                        "Email: ${emailUsuario}",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      Text(
-                        "Fecha de vencimiento: ${formattedDate}",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.03,
-                      ),
-                      isActive == 1
-                          ? ElevatedButton.icon(
-                              onPressed: () {
-                                activateUsers(idUsuario, photoUser,
-                                    isActiveDate, idCamionBus);
-                              },
-                              icon: Icon(
-                                Icons.local_activity_sharp,
-                                color: Colors.black,
-                              ),
-                              label: Text(
-                                "Activar suscripción",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  padding: EdgeInsets.all(20.0),
-                                  shadowColor: Colors.black,
-                                  side: BorderSide(
-                                      color: Colors.black, width: 1),
-                                  shape: StadiumBorder()),
-                            )
-                          : Column(
-                              children: [
-                                Text(
-                                  "Activo",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
-                                ),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.02,
-                                ),
-                                Icon(
-                                  Icons.check_circle_outline_outlined,
-                                  color: Colors.white,
-                                  size: 130,
-                                )
-                              ],
-                            ),
-                    ],
-                  ),
-                ),
               );
             }).toList(),
           );
