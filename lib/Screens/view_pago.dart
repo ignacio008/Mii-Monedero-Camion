@@ -92,7 +92,7 @@ class _ViewPagoState extends State<ViewPago> {
                     ),
                   ),
                   Text(
-                    "MII MONEDERO CHOFER",
+                    "Mii Boletinaje",
                     style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,

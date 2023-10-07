@@ -28,9 +28,10 @@ class CenserModel{
   String imagenCamion;
   int activacionesRestantes;
   String idCamion;
+  int detailSum;
 
 
-  CenserModel({this.id, this.name, this.nameOwner, this.suspended, this.numberOwner, this.email, this.createdOn, this.description, this.state, this.locality, this.services, this.category, this.addres, this.openHours, this.distanceTo, this.photos, this.latitude, this.longitude, this.numUnidad, this.placa, this.photoPLaca,this.photoLicencia,this.nameRuta,this.paraderoRuta, this.imagenCamion,this.activacionesRestantes, this.idCamion});
+  CenserModel({this.id, this.name, this.nameOwner, this.suspended, this.numberOwner, this.email, this.createdOn, this.description, this.state, this.locality, this.services, this.category, this.addres, this.openHours, this.distanceTo, this.photos, this.latitude, this.longitude, this.numUnidad, this.placa, this.photoPLaca,this.photoLicencia,this.nameRuta,this.paraderoRuta, this.imagenCamion,this.activacionesRestantes, this.idCamion ,this.detailSum});
 
 
 
@@ -67,6 +68,8 @@ class CenserModel{
       final activacionesRestantes_=datos.data()['activacionesRestantes']??'';
 
       final idCamion_=datos.data()['idCamion']??'';
+      
+      final detailSum_=datos.data()['detailSum']??null;
 
        CenserModel usuariosModel = CenserModel(
         id: id_,
@@ -97,6 +100,7 @@ class CenserModel{
         
         activacionesRestantes:activacionesRestantes_,
         idCamion:idCamion_,
+        detailSum:detailSum_,
       );
 
     return usuariosModel;
@@ -109,7 +113,7 @@ class CenserModel{
             
           };
           String photoLicencia2;
-           Map<String, dynamic> toJsonBodyCamio(id,name,email,createdOn,description,category,addres,openHours,latitude,longitude,state,locality,nameOwner,numberOwner,suspended,photos,services,photoLicencia,distanceTo,numUnidad,placa,photoPLaca,photoLicencia2,nameRuta,paraderoRuta,activacionesRestantes,imagenCamion,) =>
+           Map<String, dynamic> toJsonBodyCamio(id,name,email,createdOn,description,category,addres,openHours,latitude,longitude,state,locality,nameOwner,numberOwner,suspended,photos,services,photoLicencia,distanceTo,numUnidad,placa,photoPLaca,photoLicencia2,nameRuta,paraderoRuta,activacionesRestantes,imagenCamion,detailSum) =>
           {
             'id' : id,
            'name' : name,
@@ -138,6 +142,20 @@ class CenserModel{
            'paraderoRuta':paraderoRuta,
            'activacionesRestantes':activacionesRestantes,
            'camion':imagenCamion,
+           'detailSum':detailSum,
+            
+          };
+
+
+           Map<String, dynamic> toJsonBodyUserCamionero(id, numberOwner,photos, name, numUnidad, state, locality) =>
+          {
+            'id':id,
+            'numberOwner': numberOwner,
+            'photos':photos,
+            'name' : name,
+            'numUnidad':numUnidad,
+            'state' : state,
+            'locality' : locality,
             
           };
 }

@@ -61,7 +61,7 @@ class _TodosPagosState extends State<TodosPagos> {
                 height: 5.0,
               ),
               Text(
-                "Mii Monedero Chofer",
+                "Mii Boletinaje",
                 style: TextStyle(
                     fontSize: 26.0,
                     fontWeight: FontWeight.bold

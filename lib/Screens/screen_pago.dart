@@ -97,7 +97,7 @@ class _ScreenPagoState extends State<ScreenPago> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "MII MONEDERO CHOFER",
+                    "Mii Boletinaje",
                     style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.white,

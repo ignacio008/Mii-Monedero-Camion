@@ -13,5 +13,6 @@ class Colors{
   static const Color colorRedBackgroundDarkD = Color.fromARGB(255, 236, 4, 21);
   
   static const Color colorRedBackgroundDarkF = Color.fromARGB(255, 255, 96, 107);
+  static const Color colorEditUser = Color.fromARGB(255, 229, 30, 43);
 
 }

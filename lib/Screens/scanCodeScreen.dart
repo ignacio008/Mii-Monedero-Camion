@@ -143,7 +143,7 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
                   ),
                 ),
                 Text(
-                  "MII MONEDERO CHOFER",
+                  "Mii Boletinaje",
                   style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
@@ -480,14 +480,28 @@ class _ScanCodeScreenState extends State<ScanCodeScreen> {
         style: TextStyle(
           fontFamily: 'Barlow',
           fontWeight: FontWeight.w500,
+          color: Colors.black
         ),
       ),
-      content: Text(
-        "La activación del código de este usuario se ha finalizado con éxito, por favor, dígale al cliente que reinicie su aplicación para observar los cambios",
-        style: TextStyle(
-          fontFamily: 'Barlow',
-          fontWeight: FontWeight.w500,
-        ),
+      content: RichText(
+        text: TextSpan(
+        children: [
+          TextSpan(
+          text:  "La activación del código de este usuario se ha finalizado con éxito, por favor, dígale al cliente que reinicie su aplicación y",
+            style: TextStyle(
+              fontFamily: 'Barlow',
+              fontWeight: FontWeight.w400,color: Colors.black
+            ),
+          ),
+          TextSpan(
+          text:  " vuelva a escanear el codigo QR del camion",
+            style: TextStyle(
+              fontFamily: 'Barlow',
+              fontWeight: FontWeight.bold,color: Colors.black
+            ),
+          ),
+        ],
+      ),
       ),
       actions: <Widget>[
         TextButton(

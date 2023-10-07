@@ -14,6 +14,14 @@ class FetchData{
     
    
 
+  Future <CenserModel> getAdmin(id)async{  
+      final messages= await QuerysService().getAdimDocument(id);
+      dynamic  miinfo=messages;
+      print(miinfo.data().toString());
+      CenserModel adminmodel = CenserModel().getUsuario(miinfo);
+      return adminmodel;
+     }
+
    Future<List>getVentas(id)async{
      List<ActivacionesTotal>iconlistVentas=[];
      final messages= await QuerysService().getVentasTotalesQuery(id);

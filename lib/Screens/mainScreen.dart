@@ -27,6 +27,8 @@ import 'package:qrscan/qrscan.dart' as scanner;
 
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+import 'drawer.dart';
+
 class MainScreen extends StatefulWidget {
   CenserModel censerModel;
   MainScreen({this.censerModel});
@@ -68,24 +70,16 @@ class _MainScreenState extends State<MainScreen> {
     final double statusbarHeight = MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      body: ModalProgressHUD(
-        inAsyncCall: _showSpinner,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: statusbarHeight),
-              height: statusbarHeight + barHeight,
-              child: Center(
-                child: Text(
-                  "MII MONEDERO CHOFER",
+      appBar: AppBar(
+        title: Text(
+                  "Mii Boletinaje",
                   style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-              ),
-              decoration: BoxDecoration(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
                 gradient: LinearGradient(
                     colors: [
                       MyColors.Colors.colorRedBackgroundDark,
@@ -96,9 +90,42 @@ class _MainScreenState extends State<MainScreen> {
                     stops: [0.0, 1.0],
                     tileMode: TileMode.clamp),
               ),
-            ),
+        ),
+
+
+
+      ),
+      body: ModalProgressHUD(
+        inAsyncCall: _showSpinner,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            // Container(
+            //   padding: EdgeInsets.only(top: statusbarHeight),
+            //   height: statusbarHeight + barHeight,
+            //   child: Center(
+            //     child: Text(
+            //       "Mii Boletinaje",
+            //       style: TextStyle(
+            //           fontSize: 20.0,
+            //           color: Colors.white,
+            //           fontWeight: FontWeight.bold),
+            //     ),
+            //   ),
+            //   decoration: BoxDecoration(
+            //     gradient: LinearGradient(
+            //         colors: [
+            //           MyColors.Colors.colorRedBackgroundDark,
+            //           MyColors.Colors.colorRedBackgroundLight
+            //         ],
+            //         begin: const FractionalOffset(0.0, 0.0),
+            //         end: const FractionalOffset(0.5, 0.0),
+            //         stops: [0.0, 1.0],
+            //         tileMode: TileMode.clamp),
+            //   ),
+            // ),
             SizedBox(
-              height: 15.0,
+              height: 12.0,
             ),
             Text(
               "Bienvenido",
@@ -149,22 +176,29 @@ class _MainScreenState extends State<MainScreen> {
               flex: 2,
               child: GestureDetector(
                 onTap: () async {
-                  if (widget.censerModel.suspended) {
-                    Toast.show(
-                        "Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema",
-                        context,
-                        duration: Toast.LENGTH_LONG);
+                  if (widget.censerModel.idCamion == null ||
+                      widget.censerModel.idCamion.isEmpty) {
+                    _dialogBuilder(context, widget.censerModel.suspended);
+                    return;
                   } else {
-                    // String cameraScanResult = await scanner.scan();
-                    String cameraScanResult =
-                        await FlutterBarcodeScanner.scanBarcode(
-                            '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-                    print("el resuktado de la camara es ${cameraScanResult}");
-                    if (cameraScanResult.length >= 10) {
-                      _processUserScan(cameraScanResult);
+                    if (widget.censerModel.suspended == true) {
+                      _showAlertIsSusspend(context);
+                      Toast.show(
+                          "Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema",
+                          context,
+                          duration: Toast.LENGTH_LONG);
                     } else {
-                      print(
-                          "Lo sentimos no has selecionado un codigo QR valido");
+                      // String cameraScanResult = await scanner.scan();
+                      String cameraScanResult =
+                          await FlutterBarcodeScanner.scanBarcode(
+                              '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+                      print("el resuktado de la camara es ${cameraScanResult}");
+                      if (cameraScanResult.length >= 10) {
+                        _processUserScan(cameraScanResult);
+                      } else {
+                        print(
+                            "Lo sentimos no has selecionado un codigo QR valido");
+                      }
                     }
                   }
                 },
@@ -271,13 +305,18 @@ class _MainScreenState extends State<MainScreen> {
               flex: 2,
               child: GestureDetector(
                 onTap: () {
-                  if (widget.censerModel.idCamion==null) {
+                  if (widget.censerModel.idCamion == null) {
                     Toast.show(
                         "Lo sentimos no estas vinculado con ningun camion, intente volver a Scanear y reinicie la aplicacion",
                         context,
                         duration: Toast.LENGTH_LONG);
                     return;
                   } else {
+
+                       if (widget.censerModel.suspended==true) {
+                          _showAlertIsSusspend(context);
+
+                          }else{
                     Toast.show("Ultimo Scaneo", context,
                         duration: Toast.LENGTH_LONG);
                     Navigator.push(
@@ -286,6 +325,8 @@ class _MainScreenState extends State<MainScreen> {
                             builder: (context) => ScreenLastScaner(
                                 censerModel: widget.censerModel,
                                 iconmodellistTienda: pagoMoldeList)));
+
+                                }
                   }
                 },
                 child: Padding(
@@ -316,8 +357,14 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
       ),
+       drawer:_getDrawer(context),
     );
+    
   }
+   Widget _getDrawer(BuildContext context) {
+    return DrawerMenu(widget.censerModel);
+  }
+  
 
   void _showAlertCerrarSesion() {
     AlertDialog alertDialog = AlertDialog(
@@ -388,10 +435,11 @@ class _MainScreenState extends State<MainScreen> {
       } else {
         print("Error no es el mismo ciudad");
         Toast.show(
-          "Error no estas registrado en la misma ciudad y municipio que el camion", context,
-          duration: Toast.LENGTH_LONG);
+            "Error no estas registrado en la misma ciudad y municipio que el camion",
+            context,
+            duration: Toast.LENGTH_LONG);
         print(widget.censerModel.locality);
-        print( widget.censerModel.state);
+        print(widget.censerModel.state);
       }
     } else {
       DateTime activeUntil = DateFormat("yyyy-MM-dd").parse(codeModel.dateTime);
@@ -540,5 +588,220 @@ class _MainScreenState extends State<MainScreen> {
       miInfoList.add(usuariosModel);
     }
     return miInfoList;
+  }
+
+  Future<void> _dialogBuilder(BuildContext context, suspended) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color.fromARGB(0, 176, 88, 88),
+          content: Container(
+            height: 304,
+            decoration: BoxDecoration(
+                color: Colors.redAccent,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(12))),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Image.network(
+                      "https://cdn.pixabay.com/animation/2023/04/28/18/34/18-34-10-554_512.gif",
+                      height: 90,
+                      width: 90,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.red,
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
+                    // Image.network(
+                    //             "https://cdn.pixabay.com/animation/2023/04/28/18/34/18-34-10-554_512.gif",
+                    //             height: 90,
+                    //             width: 90,
+                    //           ),
+                  ),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12))),
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16, left: 16),
+                  child: Text(
+                    'Solicitá tu código QR para empezar a trabajar. En taquilla o en WhatsApp 7331274925.',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color.fromARGB(0, 255, 255, 255)),
+                        child: Text(
+                          'Cancelar',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 3),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white),
+                        child: Text(
+                          'Escanear',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      onPressed: () async {
+                        if (widget.censerModel.suspended==true) {
+                          _showAlertIsSusspend(context);
+                          Toast.show(
+                              "Tu cuenta está suspendida, por favor, contacta a los administradores para solucionar el problema",
+                              context,
+                              duration: Toast.LENGTH_LONG);
+                        } else {
+                          // String cameraScanResult = await scanner.scan();
+                          String cameraScanResult =
+                              await FlutterBarcodeScanner.scanBarcode(
+                                  '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+                          print(
+                              "el resuktado de la camara es ${cameraScanResult}");
+                          if (cameraScanResult.length >= 10) {
+                            _processUserScan(cameraScanResult);
+                          } else {
+                            print(
+                                "Lo sentimos no has selecionado un codigo QR valido");
+                          }
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showAlertIsSusspend(BuildContext context) {
+    AlertDialog alertDialog = AlertDialog(
+      title: Text(
+        "Lo sentimos Usuario Suspendido",
+        style: TextStyle(
+          fontFamily: 'Barlow',
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      content: Container(
+        height: 175,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Image.network(
+                  "https://cdn.pixabay.com/animation/2023/04/28/18/34/18-34-10-554_512.gif",
+                  height: 90,
+                  width: 90,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.red,
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12))),
+            ),
+            Text(
+              "Si tiene alguna duda puede comunicarse en Whatsapp 7331274925",
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        MaterialButton(
+          child: Text(
+            "Cancelar",
+            style: TextStyle(
+              fontSize: 16.0,
+              color: MyColors.Colors.colorBackgroundDark,
+              fontFamily: 'Barlow',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alertDialog;
+        });
   }
 }

@@ -114,7 +114,7 @@ class _SalesScreenState extends State<SalesScreen> {
                 height: 5.0,
               ),
               Text(
-                "Mii Monedero Chofer",
+                "Mii Boletinaje",
                 style: TextStyle(
                     fontSize: 26.0,
                     fontWeight: FontWeight.bold

@@ -59,7 +59,7 @@ class _WidgetAllPagosState extends State<WidgetAllPagos> {
                     ),
                   ),
                   Text(
-                      "Total \$355 MXN"
+                      "Total \$100 MXN"
                   ),
                   Text(
                       "${widget.iconmodelPago.status}"

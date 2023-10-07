@@ -47,8 +47,8 @@ android {
         applicationId "com.apps.scode.mega_monedero_store"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 25
-        versionName "1.2.2"
+        versionCode 33
+        versionName "1.3.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

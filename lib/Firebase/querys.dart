@@ -114,6 +114,22 @@ class QuerysService{
     String url = dowurl.toString();
     return url;
   }
+  Future<String> uploadProfileCamion({File file, String id}) async {
+
+    final Reference storageReference = FirebaseStorage.instance.ref().child("Censers").child(id + "-profile.png");
+    final UploadTask uploadTask = storageReference.putFile(file);
+    var dowurl = await (await uploadTask.whenComplete(() => null)).ref.getDownloadURL();
+    String url = dowurl.toString();
+    return url;
+  }
+  Future<String> uploadProfilePhotoCamionero({String id,File file}) async {
+
+    final Reference storageReference = FirebaseStorage.instance.ref().child("Censers").child(id + "-profile.png");
+    final UploadTask uploadTask = storageReference.putFile(file);
+    var dowurl = await (await uploadTask.whenComplete(() => null)).ref.getDownloadURL();
+    String url = dowurl.toString();
+    return url;
+  }
 
   void updateFotosEstablecimientoData({String idEstablecimiento, BuildContext context, List<String> collectionValues}) async{
     bool error = false;
@@ -379,6 +395,22 @@ class QuerysService{
     bool error = false;
     SetOptions setOptions = SetOptions(merge: true);
     return await _fireStore.collection(reference).doc(id).set(collectionValues, setOptions).catchError((onError){
+      error = true;
+      return true;
+    }).then((onValue){
+      if(!error){
+        error = false;
+        return error;
+      }
+      else{
+        error = true;
+        return error;
+      }
+    });
+  }
+  Future<bool> actualizarInfoUser({String reference, String id, Map<String, dynamic> collectionValues}) async {
+    bool error = false;
+    return await _fireStore.collection(reference).doc(id).update(collectionValues).catchError((onError){
       error = true;
       return true;
     }).then((onValue){

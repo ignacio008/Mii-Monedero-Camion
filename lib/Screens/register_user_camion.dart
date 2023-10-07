@@ -164,9 +164,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
   loadStates() async {
     String jsonString = await _loadASmaeAsset();
     var jsonResponse = json.decode(jsonString) as List;
-
     stateList = jsonResponse.map((i) => StateModel.fromJson(i)).toList();
-
     loadLocalities();
   }
 
@@ -667,7 +665,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
                                           color: Colors.white,
                                         ),
                                         decoration: InputDecoration(
-                                            hintText: "Placa",
+                                            hintText: "Nombre de la ruta",
                                             border: InputBorder.none,
                                             hintStyle: TextStyle(
                                               fontFamily: 'Futura',
@@ -852,73 +850,73 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 15),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: GestureDetector(
-                                onTap: () {
-                                  _showStatesDialogRutas();
-                                },
-                                child: Container(
-                                    height: 42.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        _statenombreRta,
-                                        style: TextStyle(color: Colors.white),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 15),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-                        child: Container(
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(
-                              color: Colors.white,
-                            ),
-                          ),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: TextFormField(
-                              textInputAction: TextInputAction.done,
-                              controller: _ParaderosRutasController,
-                              textCapitalization: TextCapitalization.sentences,
-                              maxLines: 3,
-                              cursorColor: MyColors.Colors.colorBackgroundDark,
-                              //obscureText: true,
-                              style: TextStyle(
-                                fontFamily: 'Futura',
-                                color: Colors.white,
-                              ),
-                              decoration: InputDecoration(
-                                  hintText: "Paraderos",
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                    fontFamily: 'Futura',
-                                    color: Colors.white54,
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // SizedBox(height: 15),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         flex: 1,
+                      //         child: GestureDetector(
+                      //           onTap: () {
+                      //             _showStatesDialogRutas();
+                      //           },
+                      //           child: Container(
+                      //               height: 42.0,
+                      //               decoration: BoxDecoration(
+                      //                 borderRadius: BorderRadius.circular(30.0),
+                      //                 border: Border.all(
+                      //                   color: Colors.white,
+                      //                 ),
+                      //               ),
+                      //               child: Center(
+                      //                 child: Text(
+                      //                   _statenombreRta,
+                      //                   style: TextStyle(color: Colors.white),
+                      //                   textAlign: TextAlign.center,
+                      //                 ),
+                      //               )),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // // ),
+                      // SizedBox(height: 15),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+                      //   child: Container(
+                      //     height: 100.0,
+                      //     decoration: BoxDecoration(
+                      //       borderRadius: BorderRadius.circular(20.0),
+                      //       border: Border.all(
+                      //         color: Colors.white,
+                      //       ),
+                      //     ),
+                      //     child: Padding(
+                      //       padding:
+                      //           const EdgeInsets.symmetric(horizontal: 10.0),
+                      //       child: TextFormField(
+                      //         textInputAction: TextInputAction.done,
+                      //         controller: _ParaderosRutasController,
+                      //         textCapitalization: TextCapitalization.sentences,
+                      //         maxLines: 3,
+                      //         cursorColor: MyColors.Colors.colorBackgroundDark,
+                      //         //obscureText: true,
+                      //         style: TextStyle(
+                      //           fontFamily: 'Futura',
+                      //           color: Colors.white,
+                      //         ),
+                      //         decoration: InputDecoration(
+                      //             hintText: "Paraderos",
+                      //             border: InputBorder.none,
+                      //             hintStyle: TextStyle(
+                      //               fontFamily: 'Futura',
+                      //               color: Colors.white54,
+                      //             )),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
                         height: 15.0,
                       ),
@@ -1293,7 +1291,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
       return;
     }
     if (_Placa.isEmpty) {
-      Toast.show("La placa no puede estar vacio", context,
+      Toast.show("No puede estar vacio la ruta", context,
           duration: Toast.LENGTH_LONG);
       return;
     }
@@ -1321,19 +1319,19 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
       return;
     }
 
-    if (_nameRuta == "Nombre de la ruta") {
-      Toast.show("Por favor, seleccione una ruta", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
+    // if (_nameRuta == "Nombre de la ruta") {
+    //   Toast.show("Por favor, seleccione una ruta", context,
+    //       duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    //   return;
+    // }
 
-    if (_paraderos.length < 10) {
-      Toast.show(
-          "Debes introducir paraderos válidos con al menos 10 caracteres",
-          context,
-          duration: Toast.LENGTH_LONG);
-      return;
-    }
+    // if (_paraderos.length < 10) {
+    //   Toast.show(
+    //       "Debes introducir paraderos válidos con al menos 10 caracteres",
+    //       context,
+    //       duration: Toast.LENGTH_LONG);
+    //   return;
+    // }
 
     if (_horarioRutas.length < 3) {
       Toast.show(
@@ -1453,7 +1451,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
               _NameConductor,
               _Email,
               now,
-              _paraderos,
+              "Parada # 1",
               _NumUnidad,
               _Placa,
               _horarioRutas,
@@ -1461,7 +1459,7 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
               double.parse(_Longitude),
               _state,
               _locality,
-              _nameRuta,
+              "Chofer",
               _Telefono,
               false,
               urls,
@@ -1472,10 +1470,11 @@ class _RegisterUserCamionState extends State<RegisterUserCamion> {
               _Placa.toUpperCase(),
               urlsPlaca,
               urlsLicencia,
-              _nameRuta,
-              _paraderos,
+              "Chofer",
+              "Parada # 1",
               12,
               urlsCamion,
+              0
             ));
         if (errorGuardarCamioner) {
           _cancelSpinnerError();

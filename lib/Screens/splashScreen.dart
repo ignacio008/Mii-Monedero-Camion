@@ -178,7 +178,7 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  "MII MONEDERO CHOFER",
+                  "Mii Boletinaje",
                   style: TextStyle(
                       fontSize: 28.0,
                       color: Colors.white,
